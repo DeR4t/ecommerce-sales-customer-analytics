@@ -2,9 +2,9 @@
 
 A guided Python and SQL project using the UCI Online Retail dataset. We will build it one stage at a time, explaining each decision before moving on.
 
-## Current stage: 1 — Setup and first look
+## Current stage: 2 — Data quality investigation
 
-The first notebook loads the original data and inspects its structure. It does not clean the data or calculate business KPIs yet.
+The first notebook loads the original data and inspects its structure. The second investigates missing IDs, cancellations, unusual values, duplicate-looking rows, invoice consistency, and monthly coverage. No source rows have been removed and business KPI definitions are still to be finalized.
 
 ## Roadmap
 
@@ -27,6 +27,16 @@ python -m venv .venv
 ```
 
 In JupyterLab, open `notebooks/01_first_look.ipynb`. Use **Run → Run All Cells** to rerun it. The notebook uses the environment that launched JupyterLab.
+
+Then open `notebooks/02_data_quality.ipynb`. Both notebooks are standalone: each reads and verifies the original workbook. The second lesson saves technical findings in `docs/stage_02_notes.md` and its completeness chart in `reports/figures/`.
+
+To execute a notebook and generate a read-only HTML lesson preview from PowerShell:
+
+```powershell
+.\.venv\Scripts\python.exe scripts\run_notebook.py notebooks\02_data_quality.ipynb
+```
+
+The preview is saved as `reports/02_data_quality.html`. Generated quality-count summaries in `data/processed/` are ignored by Git; they are not cleaned transaction data. Register the kernel below before using this command in a rebuilt environment.
 
 The first notebook also has a project-specific kernel. Register it locally if rebuilding the environment:
 
