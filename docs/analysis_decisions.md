@@ -1,31 +1,34 @@
-# Analysis decisions
+# Analytical methodology
 
-## Established at setup
+## Source and record grain
 
-- Preserve the raw workbook and record its SHA-256 checksum in `data/raw/source_manifest.json`.
-- Treat rows as invoice line items, invoices as candidate orders, and customer IDs as identifiers.
-- Use GBP throughout; no currency conversion is needed.
-- Keep identifiers as strings when loading into pandas.
-- Use the observed data window for analysis. December 2011 is partial; label or exclude it from full-month comparisons.
-- Customer purchase frequency describes observed purchases in this window, not lifetime behavior or future retention.
+- The original workbook is immutable; ingestion records its SHA-256 checksum.
+- Each source row is an invoice line item. Invoice IDs are candidate order identifiers, not unique line keys.
+- Invoice, product, and customer identifiers are stored as text.
+- Monetary values use GBP; no currency conversion is applied.
+- Source timestamps have no documented timezone.
 
-## Stage 2 — Investigation approach
+## Quality assessment
 
-- Profile every raw row without deleting or changing it. Keep the original workbook and its checksum intact.
-- Report exact duplicate copies beyond the first separately from all members of duplicate groups. Neither equality nor text normalization establishes a source error.
-- Treat quality flags as overlapping review populations, not additive counts of bad rows.
-- Compare monthly missing-customer shares with their raw row denominators and label December 2011 partial.
-- Treat item-code format exceptions and extreme numeric values as candidates for review, not automatic exclusions.
-- Record observed counts, implications, and unresolved causes in `stage_02_notes.md`, backed by `notebooks/02_data_quality.ipynb`.
+- Profiling retains all original rows, including anonymous entries, cancellations, and adjustments.
+- Quality flags overlap; their counts must not be added as mutually exclusive defects.
+- Exact copies beyond the first occurrence are distinguished from all members of duplicate groups. Equality alone does not establish a source error.
+- Whitespace/case normalization is evaluated on a temporary copy without altering source strings.
+- Item-code format exceptions and numeric extremes are review candidates, not automatic exclusions.
+- Invoice-level customer, country, and timestamp consistency is checked before defining relational constraints.
+- Monthly missing-customer shares retain their raw row denominators. December 2011 is labeled partial.
 
-## To decide in the next lesson after reviewing the evidence
+Evidence: [data quality notebook](../notebooks/02_data_quality.ipynb) and [quality findings](data_quality.md).
 
-- How to separate purchases, cancellations/credits, and other adjustments.
-- Whether duplicate-looking rows represent data duplication or repeated line items; do not delete them automatically.
-- How to retain anonymous sales for revenue analysis while restricting customer analysis to identified customers.
-- How to handle zero/negative prices, unusual quantities, and non-merchandise codes.
-- Definitions for gross purchase revenue, cancellation/credit value, and net recorded revenue. Do not call credit notes confirmed physical returns without evidence.
-- Which eligible invoices enter average order value.
-- Exact customer population, RFM reference date, scoring rules, and repeat-purchase denominator.
+## Population and metric definitions pending review
 
-No transaction rows have been removed. Cleaning populations and business KPI definitions remain pending until the next lesson.
+- Separate positive purchase lines, cancellation/credit entries, and other adjustments. A negative quantity alone does not prove a physical return.
+- Preserve otherwise eligible anonymous purchases for overall sales; restrict customer-history calculations to known customer IDs and disclose coverage.
+- Choose and document a duplicate baseline with a sensitivity comparison before removing exact copies.
+- Review non-merchandise and adjustment codes before defining product rankings.
+- Define gross purchase value, credit value, net recorded revenue, and eligible purchase invoices before computing average order value. Recorded revenue is not profit.
+- Define the RFM reference date, customer population, scoring rules, and repeat-purchase denominator.
+
+## Interpretation
+
+December 2011 requires exclusion from full-month comparisons or a matching-window comparison. Customer purchase frequency describes only observed activity within the source window. No transaction rows have been removed and no business KPI has yet been finalized.

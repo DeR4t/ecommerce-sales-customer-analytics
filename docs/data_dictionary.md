@@ -2,7 +2,7 @@
 
 Source: [UCI Online Retail](https://archive.ics.uci.edu/dataset/352/online+retail), DOI [10.24432/C5BW33](https://doi.org/10.24432/C5BW33).
 
-| Column | Meaning | Handling to discuss |
+| Column | Meaning | Analytical considerations |
 | --- | --- | --- |
 | InvoiceNo | Invoice identifier; a leading C indicates a cancellation | Store as text; an invoice contains multiple rows |
 | StockCode | Product/item identifier | Store as text; investigate service and adjustment codes |

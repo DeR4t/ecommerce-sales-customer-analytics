@@ -1,88 +1,69 @@
 # E-commerce Sales & Customer Analytics
 
-A guided Python and SQL project using the UCI Online Retail dataset. We will build it one stage at a time, explaining each decision before moving on.
+Reproducible analysis of transaction records from a UK online retailer, focused on sales performance, purchasing behavior, and customer segmentation.
 
-## Current stage: 2 — Data quality investigation
+## Objectives
 
-The first notebook loads the original data and inspects its structure. The second investigates missing IDs, cancellations, unusual values, duplicate-looking rows, invoice consistency, and monthly coverage. No source rows have been removed and business KPI definitions are still to be finalized.
+- Identify leading products and countries by revenue.
+- Evaluate monthly sales trends and average order value.
+- Measure repeat purchasing and customer value.
+- Segment identified customers using recency, frequency, and monetary value (RFM).
 
-## Roadmap
+## Available outputs
 
-1. **Setup and first look** — environment, source download, columns, row grain, and initial checks.
-2. **Data quality and cleaning** — investigate missing customer IDs, cancellations, unusual prices/quantities, and duplicate-looking rows; document decisions.
-3. **SQLite and SQL** — load reviewed data, define invoice/order grain, and practice aggregations and joins.
-4. **Sales analysis** — products, countries, monthly revenue, and average order value.
-5. **Customer analysis** — repeat purchasing, purchase intervals, and RFM (recency, frequency, monetary value) segmentation.
-6. **Business report** — supported findings, visualizations, recommendations, and limitations.
+| Artifact | Contents |
+| --- | --- |
+| [Dataset overview](notebooks/01_data_overview.ipynb) | Source verification, schema, coverage, and record grain |
+| [Data quality assessment](notebooks/02_data_quality.ipynb) | Missing values, cancellations, duplicate records, numeric exceptions, and invoice consistency |
+| [Quality findings](docs/data_quality.md) | Observed issues, analytical implications, and proposed treatment |
+| [Completeness chart](reports/figures/02_customer_id_completeness.png) | Monthly customer-ID coverage and source row counts |
+| [Methodology](docs/analysis_decisions.md) | Population definitions, assumptions, and outstanding decisions |
 
-## Setup (Windows PowerShell)
+Executed notebooks and HTML exports are included. Revenue KPIs, SQLite models, and customer segmentation are pending; current outputs establish the source's suitability for those analyses.
 
-Run these commands from this project folder. The environment is local to this project; no activation or PowerShell policy change is needed.
+## Data
+
+[UCI Online Retail](https://archive.ics.uci.edu/dataset/352/online+retail) contains 541,909 invoice line items from 1 December 2010 to 9 December 2011. Prices are in GBP. An invoice can contain multiple line items, so row counts are not order counts.
+
+The raw workbook is preserved and verified against a recorded SHA-256 checksum. Source files, intermediate datasets, and local databases are excluded from version control. See the [data dictionary](docs/data_dictionary.md) for field definitions.
+
+## Reproduce
+
+From the project root in Windows PowerShell, using Python 3.14:
 
 ```powershell
 python -m venv .venv
-.\.venv\Scripts\python.exe -m pip install -r requirements.txt
+.\.venv\Scripts\python.exe -m pip install -r requirements-lock.txt
+Invoke-WebRequest -Uri 'https://archive.ics.uci.edu/static/public/352/online+retail.zip' -OutFile 'data\raw\online_retail.zip'
 .\.venv\Scripts\python.exe scripts\download_data.py
-.\.venv\Scripts\python.exe -m jupyterlab
-```
-
-In JupyterLab, open `notebooks/01_first_look.ipynb`. Use **Run → Run All Cells** to rerun it. The notebook uses the environment that launched JupyterLab.
-
-Then open `notebooks/02_data_quality.ipynb`. Both notebooks are standalone: each reads and verifies the original workbook. The second lesson saves technical findings in `docs/stage_02_notes.md` and its completeness chart in `reports/figures/`.
-
-To execute a notebook and generate a read-only HTML lesson preview from PowerShell:
-
-```powershell
+.\.venv\Scripts\python.exe -m ipykernel install --prefix .venv --name ecommerce-analytics --display-name "E-commerce Analytics (.venv)"
+.\.venv\Scripts\python.exe scripts\run_notebook.py notebooks\01_data_overview.ipynb
 .\.venv\Scripts\python.exe scripts\run_notebook.py notebooks\02_data_quality.ipynb
 ```
 
-The preview is saved as `reports/02_data_quality.html`. Generated quality-count summaries in `data/processed/` are ignored by Git; they are not cleaned transaction data. Register the kernel below before using this command in a rebuilt environment.
+`requirements-lock.txt` records the verified environment; `requirements.txt` defines supported dependency ranges. The runner saves executed notebooks and HTML exports under `reports/`. Launch JupyterLab with `.\.venv\Scripts\python.exe -m jupyterlab` for interactive use.
 
-The first notebook also has a project-specific kernel. Register it locally if rebuilding the environment:
-
-```powershell
-.\.venv\Scripts\python.exe -m ipykernel install --prefix .venv --name ecommerce-analytics --display-name "E-commerce Analytics (.venv)"
-```
-
-If Python reports a certificate error while downloading, use Windows certificate validation to download the same archive, then run the downloader again. Do not disable certificate verification.
-
-```powershell
-Invoke-WebRequest -Uri 'https://archive.ics.uci.edu/static/public/352/online+retail.zip' -OutFile 'data\raw\online_retail.zip'
-.\.venv\Scripts\python.exe scripts\download_data.py
-```
-
-`requirements-lock.txt` records the exact installed versions from the verified setup. Use `-r requirements-lock.txt` instead of `-r requirements.txt` to reproduce that environment on a compatible Python/Windows installation.
-
-## Folder guide
+## Structure
 
 ```text
-data/raw/          Original source files; never edit in place
-data/processed/    Reviewed datasets (stage 2)
-database/          SQLite database (stage 3)
-notebooks/         Guided notebooks
-sql/               Saved SQL queries (stage 3)
-reports/figures/   Exported charts (later stages)
-docs/              Source notes, definitions, and decisions
-scripts/           Reusable project utilities
+data/raw/          Original workbook and source manifest (untracked)
+data/processed/    Derived datasets and profiling summaries (untracked)
+database/          Local SQLite databases (untracked)
+docs/              Field definitions, methodology, and quality findings
+notebooks/         Reproducible analytical notebooks
+reports/           HTML exports and figures
+scripts/           Download and execution utilities
+sql/               SQL models and analytical queries
 ```
 
-## Questions we will answer
+## Analytical limitations
 
-- Which products generate the most revenue?
-- Which countries contribute the most sales?
-- Who are the most valuable customers?
-- How does revenue change by month?
-- How frequently do customers purchase again?
-- What is the average order value?
+- Missing customer IDs constrain customer-level coverage; anonymous sales require separate treatment.
+- Cancellations, adjustments, non-merchandise codes, and duplicate-looking rows require documented eligibility rules before revenue aggregation.
+- December 2011 is partial and is not directly comparable with full months.
+- The source does not provide costs, customer demographics, acquisition channels, or website traffic. Profit and conversion metrics cannot be established from this dataset.
+- Purchase frequency describes the observed historical window, not customer lifetime behavior.
 
-## Source and scope
+## Attribution
 
-Chen, D. (2015). *Online Retail* [Dataset]. UCI Machine Learning Repository. <https://doi.org/10.24432/C5BW33>. License: CC BY 4.0.
-
-Source page: <https://archive.ics.uci.edu/dataset/352/online+retail>.
-
-This is historical data for a UK-based retailer, covering 1 December 2010–9 December 2011, with prices in GBP. A row is an invoice line item, not a complete order. One invoice can span multiple rows. The final month is partial, so a raw month-to-month comparison would be misleading.
-
-The screenshot is a project brief and visual reference. Its dashboard values are not results from our dataset. Discount, acquisition-channel, age, and profit analyses require fields that this source does not provide.
-
-See `docs/data_dictionary.md` for columns and `docs/analysis_decisions.md` for the decisions we will make together.
+Chen, D. (2015). *Online Retail* [Dataset]. UCI Machine Learning Repository. [DOI: 10.24432/C5BW33](https://doi.org/10.24432/C5BW33). Dataset license: [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).

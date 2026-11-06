@@ -7802,9 +7802,8 @@ a.anchor-link {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h1 id="02-%E2%80%94-Investigate-data-quality-before-cleaning">02 — Investigate data quality before cleaning<a class="anchor-link" href="#02-%E2%80%94-Investigate-data-quality-before-cleaning">¶</a></h1><h2 id="Goal">Goal<a class="anchor-link" href="#Goal">¶</a></h2><p>Decide which raw rows can support sales and customer analysis. We will measure missingness, inspect cancellations and unusual values, examine duplicate-looking rows, and check invoice consistency.</p>
-<p><strong>Learning idea:</strong> an unusual row is a question to investigate, not automatic permission to delete it. This lesson flags issues and preserves every original row. Cleaning comes next.</p>
-<p>Source: Chen, D. (2015). <a href="https://doi.org/10.24432/C5BW33">Online Retail, UCI</a>, CC BY 4.0. Local input: <code>data/raw/Online Retail.xlsx</code>, sheet <code>Online Retail</code>. Prices are GBP. Raw grain: invoice line item; no guaranteed unique source line ID is supplied.</p>
+<h1 id="Data-quality-assessment">Data quality assessment<a class="anchor-link" href="#Data-quality-assessment">¶</a></h1><h2 id="Summary">Summary<a class="anchor-link" href="#Summary">¶</a></h2><p>Assessment of source completeness, cancellations, duplicate records, numeric validity, invoice consistency, and temporal coverage. All original records are retained.</p>
+<p>Source: Chen, D. (2015). <a href="https://doi.org/10.24432/C5BW33">Online Retail, UCI</a>, CC BY 4.0. Input: <code>data/raw/Online Retail.xlsx</code>, sheet <code>Online Retail</code>. Prices are GBP. The source grain is an invoice line item; a unique line identifier is not supplied.</p>
 </div>
 </div>
 </div>
@@ -7815,8 +7814,7 @@ a.anchor-link {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Setup">Setup<a class="anchor-link" href="#Setup">¶</a></h2><p>Run cells from top to bottom using <strong>E-commerce Analytics (.venv)</strong>. All checks use the complete raw workbook, including anonymous sales, cancellations, and adjustments. Numeric flag percentages use <strong>all raw rows</strong> as their denominator unless another population is explicitly named.</p>
-<p>We use a copy only for a whitespace/case sensitivity check; we do not overwrite the workbook or produce a cleaned dataset.</p>
+<h2 id="Method-and-scope">Method and scope<a class="anchor-link" href="#Method-and-scope">¶</a></h2><p>Checks cover the complete workbook, including anonymous records, cancellations, and adjustments. Flag percentages use all raw rows unless another denominator is specified. Text normalization is evaluated on a temporary copy; no cleaned transaction dataset is produced.</p>
 </div>
 </div>
 </div>
@@ -7889,8 +7887,7 @@ a.anchor-link {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Steps">Steps<a class="anchor-link" href="#Steps">¶</a></h2><h3 id="1.-Measure-missing-values">1. Measure missing values<a class="anchor-link" href="#1.-Measure-missing-values">¶</a></h3><p><code>isna()</code> produces a table of true/false flags. Summing those flags counts missing cells. Dividing by the number of rows produces a missingness rate.</p>
-<p>An absent customer ID prevents us from identifying that customer's purchase history. It does <strong>not</strong>, by itself, establish that the sale is invalid. The source page says no missing values; we check the actual file rather than relying on that metadata.</p>
+<h2 id="Completeness">Completeness<a class="anchor-link" href="#Completeness">¶</a></h2><p>Null counts and rates are calculated by column. Blank text is checked separately. Missing customer identifiers limit customer-history analysis but do not independently establish invalid sales. Workbook observations take precedence over conflicting source metadata.</p>
 </div>
 </div>
 </div>
@@ -7928,54 +7925,54 @@ a.anchor-link {
 <div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output" data-mime-type="text/html" tabindex="0">
 <style type="text/css">
 </style>
-<table id="T_61fcf">
+<table id="T_88026">
 <thead>
 <tr>
 <th class="blank level0"> </th>
-<th class="col_heading level0 col0" id="T_61fcf_level0_col0">Missing rows</th>
-<th class="col_heading level0 col1" id="T_61fcf_level0_col1">Missing % of raw rows</th>
+<th class="col_heading level0 col0" id="T_88026_level0_col0">Missing rows</th>
+<th class="col_heading level0 col1" id="T_88026_level0_col1">Missing % of raw rows</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<th class="row_heading level0 row0" id="T_61fcf_level0_row0">InvoiceNo</th>
-<td class="data row0 col0" id="T_61fcf_row0_col0">0</td>
-<td class="data row0 col1" id="T_61fcf_row0_col1">0.00%</td>
+<th class="row_heading level0 row0" id="T_88026_level0_row0">InvoiceNo</th>
+<td class="data row0 col0" id="T_88026_row0_col0">0</td>
+<td class="data row0 col1" id="T_88026_row0_col1">0.00%</td>
 </tr>
 <tr>
-<th class="row_heading level0 row1" id="T_61fcf_level0_row1">StockCode</th>
-<td class="data row1 col0" id="T_61fcf_row1_col0">0</td>
-<td class="data row1 col1" id="T_61fcf_row1_col1">0.00%</td>
+<th class="row_heading level0 row1" id="T_88026_level0_row1">StockCode</th>
+<td class="data row1 col0" id="T_88026_row1_col0">0</td>
+<td class="data row1 col1" id="T_88026_row1_col1">0.00%</td>
 </tr>
 <tr>
-<th class="row_heading level0 row2" id="T_61fcf_level0_row2">Description</th>
-<td class="data row2 col0" id="T_61fcf_row2_col0">1,454</td>
-<td class="data row2 col1" id="T_61fcf_row2_col1">0.27%</td>
+<th class="row_heading level0 row2" id="T_88026_level0_row2">Description</th>
+<td class="data row2 col0" id="T_88026_row2_col0">1,454</td>
+<td class="data row2 col1" id="T_88026_row2_col1">0.27%</td>
 </tr>
 <tr>
-<th class="row_heading level0 row3" id="T_61fcf_level0_row3">Quantity</th>
-<td class="data row3 col0" id="T_61fcf_row3_col0">0</td>
-<td class="data row3 col1" id="T_61fcf_row3_col1">0.00%</td>
+<th class="row_heading level0 row3" id="T_88026_level0_row3">Quantity</th>
+<td class="data row3 col0" id="T_88026_row3_col0">0</td>
+<td class="data row3 col1" id="T_88026_row3_col1">0.00%</td>
 </tr>
 <tr>
-<th class="row_heading level0 row4" id="T_61fcf_level0_row4">InvoiceDate</th>
-<td class="data row4 col0" id="T_61fcf_row4_col0">0</td>
-<td class="data row4 col1" id="T_61fcf_row4_col1">0.00%</td>
+<th class="row_heading level0 row4" id="T_88026_level0_row4">InvoiceDate</th>
+<td class="data row4 col0" id="T_88026_row4_col0">0</td>
+<td class="data row4 col1" id="T_88026_row4_col1">0.00%</td>
 </tr>
 <tr>
-<th class="row_heading level0 row5" id="T_61fcf_level0_row5">UnitPrice</th>
-<td class="data row5 col0" id="T_61fcf_row5_col0">0</td>
-<td class="data row5 col1" id="T_61fcf_row5_col1">0.00%</td>
+<th class="row_heading level0 row5" id="T_88026_level0_row5">UnitPrice</th>
+<td class="data row5 col0" id="T_88026_row5_col0">0</td>
+<td class="data row5 col1" id="T_88026_row5_col1">0.00%</td>
 </tr>
 <tr>
-<th class="row_heading level0 row6" id="T_61fcf_level0_row6">CustomerID</th>
-<td class="data row6 col0" id="T_61fcf_row6_col0">135,080</td>
-<td class="data row6 col1" id="T_61fcf_row6_col1">24.93%</td>
+<th class="row_heading level0 row6" id="T_88026_level0_row6">CustomerID</th>
+<td class="data row6 col0" id="T_88026_row6_col0">135,080</td>
+<td class="data row6 col1" id="T_88026_row6_col1">24.93%</td>
 </tr>
 <tr>
-<th class="row_heading level0 row7" id="T_61fcf_level0_row7">Country</th>
-<td class="data row7 col0" id="T_61fcf_row7_col0">0</td>
-<td class="data row7 col1" id="T_61fcf_row7_col1">0.00%</td>
+<th class="row_heading level0 row7" id="T_88026_level0_row7">Country</th>
+<td class="data row7 col0" id="T_88026_row7_col0">0</td>
+<td class="data row7 col1" id="T_88026_row7_col1">0.00%</td>
 </tr>
 </tbody>
 </table>
@@ -8040,8 +8037,7 @@ a.anchor-link {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="2.-Separate-the-flags-from-the-cleaning-rules">2. Separate the flags from the cleaning rules<a class="anchor-link" href="#2.-Separate-the-flags-from-the-cleaning-rules">¶</a></h3><p>UCI documents invoice IDs starting with <code>C</code> as cancellations. Negative quantities can also describe adjustments; the sign alone does not prove a physical return.</p>
-<p>These flags <strong>overlap</strong>. For example, a cancellation may also have a negative quantity and a missing customer ID. Never add the flag counts together to claim a count of bad rows.</p>
+<h2 id="Review-flags">Review flags<a class="anchor-link" href="#Review-flags">¶</a></h2><p>C-prefixed invoice identifiers are documented as cancellations. Negative quantities can also represent adjustments. Flags overlap and must not be summed as independent defects. A negative quantity alone does not establish a physical return.</p>
 </div>
 </div>
 </div>
@@ -8086,54 +8082,54 @@ a.anchor-link {
 <div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output" data-mime-type="text/html" tabindex="0">
 <style type="text/css">
 </style>
-<table id="T_fadd7">
+<table id="T_e9f37">
 <thead>
 <tr>
 <th class="blank level0"> </th>
-<th class="col_heading level0 col0" id="T_fadd7_level0_col0">Flagged rows</th>
-<th class="col_heading level0 col1" id="T_fadd7_level0_col1">% of all raw rows</th>
+<th class="col_heading level0 col0" id="T_e9f37_level0_col0">Flagged rows</th>
+<th class="col_heading level0 col1" id="T_e9f37_level0_col1">% of all raw rows</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<th class="row_heading level0 row0" id="T_fadd7_level0_row0">Missing customer ID</th>
-<td class="data row0 col0" id="T_fadd7_row0_col0">135,080</td>
-<td class="data row0 col1" id="T_fadd7_row0_col1">24.93%</td>
+<th class="row_heading level0 row0" id="T_e9f37_level0_row0">Missing customer ID</th>
+<td class="data row0 col0" id="T_e9f37_row0_col0">135,080</td>
+<td class="data row0 col1" id="T_e9f37_row0_col1">24.93%</td>
 </tr>
 <tr>
-<th class="row_heading level0 row1" id="T_fadd7_level0_row1">Missing item description</th>
-<td class="data row1 col0" id="T_fadd7_row1_col0">1,454</td>
-<td class="data row1 col1" id="T_fadd7_row1_col1">0.27%</td>
+<th class="row_heading level0 row1" id="T_e9f37_level0_row1">Missing item description</th>
+<td class="data row1 col0" id="T_e9f37_row1_col0">1,454</td>
+<td class="data row1 col1" id="T_e9f37_row1_col1">0.27%</td>
 </tr>
 <tr>
-<th class="row_heading level0 row2" id="T_fadd7_level0_row2">C-prefixed invoice</th>
-<td class="data row2 col0" id="T_fadd7_row2_col0">9,288</td>
-<td class="data row2 col1" id="T_fadd7_row2_col1">1.71%</td>
+<th class="row_heading level0 row2" id="T_e9f37_level0_row2">C-prefixed invoice</th>
+<td class="data row2 col0" id="T_e9f37_row2_col0">9,288</td>
+<td class="data row2 col1" id="T_e9f37_row2_col1">1.71%</td>
 </tr>
 <tr>
-<th class="row_heading level0 row3" id="T_fadd7_level0_row3">Negative quantity</th>
-<td class="data row3 col0" id="T_fadd7_row3_col0">10,624</td>
-<td class="data row3 col1" id="T_fadd7_row3_col1">1.96%</td>
+<th class="row_heading level0 row3" id="T_e9f37_level0_row3">Negative quantity</th>
+<td class="data row3 col0" id="T_e9f37_row3_col0">10,624</td>
+<td class="data row3 col1" id="T_e9f37_row3_col1">1.96%</td>
 </tr>
 <tr>
-<th class="row_heading level0 row4" id="T_fadd7_level0_row4">Zero quantity</th>
-<td class="data row4 col0" id="T_fadd7_row4_col0">0</td>
-<td class="data row4 col1" id="T_fadd7_row4_col1">0.00%</td>
+<th class="row_heading level0 row4" id="T_e9f37_level0_row4">Zero quantity</th>
+<td class="data row4 col0" id="T_e9f37_row4_col0">0</td>
+<td class="data row4 col1" id="T_e9f37_row4_col1">0.00%</td>
 </tr>
 <tr>
-<th class="row_heading level0 row5" id="T_fadd7_level0_row5">Negative unit price</th>
-<td class="data row5 col0" id="T_fadd7_row5_col0">2</td>
-<td class="data row5 col1" id="T_fadd7_row5_col1">0.00%</td>
+<th class="row_heading level0 row5" id="T_e9f37_level0_row5">Negative unit price</th>
+<td class="data row5 col0" id="T_e9f37_row5_col0">2</td>
+<td class="data row5 col1" id="T_e9f37_row5_col1">0.00%</td>
 </tr>
 <tr>
-<th class="row_heading level0 row6" id="T_fadd7_level0_row6">Zero unit price</th>
-<td class="data row6 col0" id="T_fadd7_row6_col0">2,515</td>
-<td class="data row6 col1" id="T_fadd7_row6_col1">0.46%</td>
+<th class="row_heading level0 row6" id="T_e9f37_level0_row6">Zero unit price</th>
+<td class="data row6 col0" id="T_e9f37_row6_col0">2,515</td>
+<td class="data row6 col1" id="T_e9f37_row6_col1">0.46%</td>
 </tr>
 <tr>
-<th class="row_heading level0 row7" id="T_fadd7_level0_row7">Exact duplicate beyond first</th>
-<td class="data row7 col0" id="T_fadd7_row7_col0">5,268</td>
-<td class="data row7 col1" id="T_fadd7_row7_col1">0.97%</td>
+<th class="row_heading level0 row7" id="T_e9f37_level0_row7">Exact duplicate beyond first</th>
+<td class="data row7 col0" id="T_e9f37_row7_col0">5,268</td>
+<td class="data row7 col1" id="T_e9f37_row7_col1">0.97%</td>
 </tr>
 </tbody>
 </table>
@@ -8155,8 +8151,7 @@ a.anchor-link {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="3.-Cross-check-cancellation-IDs-against-quantity-signs">3. Cross-check cancellation IDs against quantity signs<a class="anchor-link" href="#3.-Cross-check-cancellation-IDs-against-quantity-signs">¶</a></h3><p>A cross-tab counts combinations. This tells us whether every negative quantity is attached to a cancellation ID, and whether every cancellation has a negative quantity.</p>
-<p>Each row enters exactly one cell, so this table should sum to the workbook row count.</p>
+<h2 id="Cancellation-and-quantity-consistency">Cancellation and quantity consistency<a class="anchor-link" href="#Cancellation-and-quantity-consistency">¶</a></h2><p>Invoice prefix and quantity sign are cross-tabulated to identify negative-quantity entries outside the cancellation population. The mutually exclusive cells reconcile to the source row count.</p>
 </div>
 </div>
 </div>
@@ -8356,8 +8351,7 @@ a.anchor-link {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="4.-Examine-duplicate-looking-rows">4. Examine duplicate-looking rows<a class="anchor-link" href="#4.-Examine-duplicate-looking-rows">¶</a></h3><p>An invoice number repeats legitimately because an order contains multiple line items. Even <code>InvoiceNo + StockCode</code> is not a guaranteed line key.</p>
-<p>We distinguish <strong>extra exact copies beyond the first occurrence</strong> from <strong>all rows belonging to duplicate groups</strong>. We also repeat the comparison after trimming whitespace and standardizing case in text columns, using a temporary copy. Neither count proves that deletion is correct.</p>
+<h2 id="Duplicate-records-and-candidate-keys">Duplicate records and candidate keys<a class="anchor-link" href="#Duplicate-records-and-candidate-keys">¶</a></h2><p>Exact copies beyond the first occurrence are distinguished from all members of duplicate groups. A sensitivity check normalizes whitespace and case on a temporary copy. Neither repeated invoice/product pairs nor matching row values establish a unique line key or prove ingestion duplication.</p>
 </div>
 </div>
 </div>
@@ -8582,8 +8576,7 @@ a.anchor-link {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="5.-Inspect-numeric-extremes-and-unusual-item-codes">5. Inspect numeric extremes and unusual item codes<a class="anchor-link" href="#5.-Inspect-numeric-extremes-and-unusual-item-codes">¶</a></h3><p>Quantiles show the middle and tails without assuming a normal distribution. We inspect the largest absolute quantities and prices. Wholesale transactions can be large, so size alone is not an error rule.</p>
-<p>The item-code format check below is only a <strong>review heuristic</strong>: five digits with up to two letter suffixes. Codes outside it may describe services, adjustments, or legitimate items. Their descriptions need review before product rankings are defined.</p>
+<h2 id="Numeric-exceptions-and-item-codes">Numeric exceptions and item codes<a class="anchor-link" href="#Numeric-exceptions-and-item-codes">¶</a></h2><p>Quantiles and extreme observations identify quantities and unit prices requiring review. Large values can reflect wholesale transactions. Item codes outside the five-digit pattern with up to two letter suffixes are review candidates; format exceptions are not automatically invalidated.</p>
 </div>
 </div>
 </div>
@@ -8625,33 +8618,33 @@ a.anchor-link {
 <div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output" data-mime-type="text/html" tabindex="0">
 <style type="text/css">
 </style>
-<table id="T_ba413">
+<table id="T_6e603">
 <thead>
 <tr>
 <th class="blank level0"> </th>
-<th class="col_heading level0 col0" id="T_ba413_level0_col0">Minimum</th>
-<th class="col_heading level0 col1" id="T_ba413_level0_col1">1st percentile</th>
-<th class="col_heading level0 col2" id="T_ba413_level0_col2">Median</th>
-<th class="col_heading level0 col3" id="T_ba413_level0_col3">99th percentile</th>
-<th class="col_heading level0 col4" id="T_ba413_level0_col4">Maximum</th>
+<th class="col_heading level0 col0" id="T_6e603_level0_col0">Minimum</th>
+<th class="col_heading level0 col1" id="T_6e603_level0_col1">1st percentile</th>
+<th class="col_heading level0 col2" id="T_6e603_level0_col2">Median</th>
+<th class="col_heading level0 col3" id="T_6e603_level0_col3">99th percentile</th>
+<th class="col_heading level0 col4" id="T_6e603_level0_col4">Maximum</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<th class="row_heading level0 row0" id="T_ba413_level0_row0">Quantity</th>
-<td class="data row0 col0" id="T_ba413_row0_col0">-80,995.00</td>
-<td class="data row0 col1" id="T_ba413_row0_col1">-2.00</td>
-<td class="data row0 col2" id="T_ba413_row0_col2">3.00</td>
-<td class="data row0 col3" id="T_ba413_row0_col3">100.00</td>
-<td class="data row0 col4" id="T_ba413_row0_col4">80,995.00</td>
+<th class="row_heading level0 row0" id="T_6e603_level0_row0">Quantity</th>
+<td class="data row0 col0" id="T_6e603_row0_col0">-80,995.00</td>
+<td class="data row0 col1" id="T_6e603_row0_col1">-2.00</td>
+<td class="data row0 col2" id="T_6e603_row0_col2">3.00</td>
+<td class="data row0 col3" id="T_6e603_row0_col3">100.00</td>
+<td class="data row0 col4" id="T_6e603_row0_col4">80,995.00</td>
 </tr>
 <tr>
-<th class="row_heading level0 row1" id="T_ba413_level0_row1">UnitPrice</th>
-<td class="data row1 col0" id="T_ba413_row1_col0">-11,062.06</td>
-<td class="data row1 col1" id="T_ba413_row1_col1">0.19</td>
-<td class="data row1 col2" id="T_ba413_row1_col2">2.08</td>
-<td class="data row1 col3" id="T_ba413_row1_col3">18.00</td>
-<td class="data row1 col4" id="T_ba413_row1_col4">38,970.00</td>
+<th class="row_heading level0 row1" id="T_6e603_level0_row1">UnitPrice</th>
+<td class="data row1 col0" id="T_6e603_row1_col0">-11,062.06</td>
+<td class="data row1 col1" id="T_6e603_row1_col1">0.19</td>
+<td class="data row1 col2" id="T_6e603_row1_col2">2.08</td>
+<td class="data row1 col3" id="T_6e603_row1_col3">18.00</td>
+<td class="data row1 col4" id="T_6e603_row1_col4">38,970.00</td>
 </tr>
 </tbody>
 </table>
@@ -8943,8 +8936,7 @@ a.anchor-link {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="6.-Check-whether-invoice-attributes-agree-across-lines">6. Check whether invoice attributes agree across lines<a class="anchor-link" href="#6.-Check-whether-invoice-attributes-agree-across-lines">¶</a></h3><p>Before creating an order table in SQLite, we need to know whether one invoice maps to multiple known customers, countries, or timestamps. Missing IDs are counted separately; we do not invent an identity or fill IDs from neighboring rows.</p>
-<p>These are investigation flags, not constraints declared safe for the raw source.</p>
+<h2 id="Invoice-consistency">Invoice consistency<a class="anchor-link" href="#Invoice-consistency">¶</a></h2><p>Distinct known customers, countries, and timestamps are assessed within each invoice ID before order-level relational constraints are defined. Missing identifiers are not imputed.</p>
 </div>
 </div>
 </div>
@@ -9126,8 +9118,7 @@ a.anchor-link {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="7.-Inspect-missing-customer-IDs-over-time">7. Inspect missing customer IDs over time<a class="anchor-link" href="#7.-Inspect-missing-customer-IDs-over-time">¶</a></h3><p>The same overall missingness rate can hide variation between months. We show the missing-ID share alongside raw row volume so the denominator stays visible.</p>
-<p>December 2011 ends on the source's last observed date, not at month end. Its smaller volume must not be interpreted as a full-month decline. Dates have no documented timezone. Closed days or gaps are not evidence of an ingestion failure in this historical extract.</p>
+<h2 id="Temporal-coverage">Temporal coverage<a class="anchor-link" href="#Temporal-coverage">¶</a></h2><p>Monthly missing-customer shares are paired with raw row denominators. December 2011 is partial. Changes in completeness do not establish an ingestion failure or its cause. The source provides no ingestion timestamp or documented timezone.</p>
 </div>
 </div>
 </div>
@@ -9199,17 +9190,17 @@ a.anchor-link {
 <div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output" data-mime-type="text/html" tabindex="0">
 <style type="text/css">
 </style>
-<table id="T_0ee0d">
+<table id="T_0a6e6">
 <thead>
 <tr>
 <th class="blank level0"> </th>
-<th class="col_heading level0 col0" id="T_0ee0d_level0_col0">Raw_rows</th>
-<th class="col_heading level0 col1" id="T_0ee0d_level0_col1">Missing_customer_rows</th>
-<th class="col_heading level0 col2" id="T_0ee0d_level0_col2">C_prefixed_rows</th>
-<th class="col_heading level0 col3" id="T_0ee0d_level0_col3">Duplicate_extra_rows</th>
-<th class="col_heading level0 col4" id="T_0ee0d_level0_col4">Missing_customer_pct</th>
-<th class="col_heading level0 col5" id="T_0ee0d_level0_col5">First_observed_timestamp</th>
-<th class="col_heading level0 col6" id="T_0ee0d_level0_col6">Last_observed_timestamp</th>
+<th class="col_heading level0 col0" id="T_0a6e6_level0_col0">Raw_rows</th>
+<th class="col_heading level0 col1" id="T_0a6e6_level0_col1">Missing_customer_rows</th>
+<th class="col_heading level0 col2" id="T_0a6e6_level0_col2">C_prefixed_rows</th>
+<th class="col_heading level0 col3" id="T_0a6e6_level0_col3">Duplicate_extra_rows</th>
+<th class="col_heading level0 col4" id="T_0a6e6_level0_col4">Missing_customer_pct</th>
+<th class="col_heading level0 col5" id="T_0a6e6_level0_col5">First_observed_timestamp</th>
+<th class="col_heading level0 col6" id="T_0a6e6_level0_col6">Last_observed_timestamp</th>
 </tr>
 <tr>
 <th class="index_name level0">Month</th>
@@ -9224,134 +9215,134 @@ a.anchor-link {
 </thead>
 <tbody>
 <tr>
-<th class="row_heading level0 row0" id="T_0ee0d_level0_row0">2010-12</th>
-<td class="data row0 col0" id="T_0ee0d_row0_col0">42481</td>
-<td class="data row0 col1" id="T_0ee0d_row0_col1">15631</td>
-<td class="data row0 col2" id="T_0ee0d_row0_col2">728</td>
-<td class="data row0 col3" id="T_0ee0d_row0_col3">500</td>
-<td class="data row0 col4" id="T_0ee0d_row0_col4">36.80%</td>
-<td class="data row0 col5" id="T_0ee0d_row0_col5">2010-12-01 08:26:00</td>
-<td class="data row0 col6" id="T_0ee0d_row0_col6">2010-12-23 17:41:00</td>
+<th class="row_heading level0 row0" id="T_0a6e6_level0_row0">2010-12</th>
+<td class="data row0 col0" id="T_0a6e6_row0_col0">42481</td>
+<td class="data row0 col1" id="T_0a6e6_row0_col1">15631</td>
+<td class="data row0 col2" id="T_0a6e6_row0_col2">728</td>
+<td class="data row0 col3" id="T_0a6e6_row0_col3">500</td>
+<td class="data row0 col4" id="T_0a6e6_row0_col4">36.80%</td>
+<td class="data row0 col5" id="T_0a6e6_row0_col5">2010-12-01 08:26:00</td>
+<td class="data row0 col6" id="T_0a6e6_row0_col6">2010-12-23 17:41:00</td>
 </tr>
 <tr>
-<th class="row_heading level0 row1" id="T_0ee0d_level0_row1">2011-01</th>
-<td class="data row1 col0" id="T_0ee0d_row1_col0">35147</td>
-<td class="data row1 col1" id="T_0ee0d_row1_col1">13235</td>
-<td class="data row1 col2" id="T_0ee0d_row1_col2">701</td>
-<td class="data row1 col3" id="T_0ee0d_row1_col3">247</td>
-<td class="data row1 col4" id="T_0ee0d_row1_col4">37.66%</td>
-<td class="data row1 col5" id="T_0ee0d_row1_col5">2011-01-04 10:00:00</td>
-<td class="data row1 col6" id="T_0ee0d_row1_col6">2011-01-31 16:59:00</td>
+<th class="row_heading level0 row1" id="T_0a6e6_level0_row1">2011-01</th>
+<td class="data row1 col0" id="T_0a6e6_row1_col0">35147</td>
+<td class="data row1 col1" id="T_0a6e6_row1_col1">13235</td>
+<td class="data row1 col2" id="T_0a6e6_row1_col2">701</td>
+<td class="data row1 col3" id="T_0a6e6_row1_col3">247</td>
+<td class="data row1 col4" id="T_0a6e6_row1_col4">37.66%</td>
+<td class="data row1 col5" id="T_0a6e6_row1_col5">2011-01-04 10:00:00</td>
+<td class="data row1 col6" id="T_0a6e6_row1_col6">2011-01-31 16:59:00</td>
 </tr>
 <tr>
-<th class="row_heading level0 row2" id="T_0ee0d_level0_row2">2011-02</th>
-<td class="data row2 col0" id="T_0ee0d_row2_col0">27707</td>
-<td class="data row2 col1" id="T_0ee0d_row2_col1">7344</td>
-<td class="data row2 col2" id="T_0ee0d_row2_col2">475</td>
-<td class="data row2 col3" id="T_0ee0d_row2_col3">228</td>
-<td class="data row2 col4" id="T_0ee0d_row2_col4">26.51%</td>
-<td class="data row2 col5" id="T_0ee0d_row2_col5">2011-02-01 08:23:00</td>
-<td class="data row2 col6" id="T_0ee0d_row2_col6">2011-02-28 17:04:00</td>
+<th class="row_heading level0 row2" id="T_0a6e6_level0_row2">2011-02</th>
+<td class="data row2 col0" id="T_0a6e6_row2_col0">27707</td>
+<td class="data row2 col1" id="T_0a6e6_row2_col1">7344</td>
+<td class="data row2 col2" id="T_0a6e6_row2_col2">475</td>
+<td class="data row2 col3" id="T_0a6e6_row2_col3">228</td>
+<td class="data row2 col4" id="T_0a6e6_row2_col4">26.51%</td>
+<td class="data row2 col5" id="T_0a6e6_row2_col5">2011-02-01 08:23:00</td>
+<td class="data row2 col6" id="T_0a6e6_row2_col6">2011-02-28 17:04:00</td>
 </tr>
 <tr>
-<th class="row_heading level0 row3" id="T_0ee0d_level0_row3">2011-03</th>
-<td class="data row3 col0" id="T_0ee0d_row3_col0">36748</td>
-<td class="data row3 col1" id="T_0ee0d_row3_col1">8926</td>
-<td class="data row3 col2" id="T_0ee0d_row3_col2">699</td>
-<td class="data row3 col3" id="T_0ee0d_row3_col3">309</td>
-<td class="data row3 col4" id="T_0ee0d_row3_col4">24.29%</td>
-<td class="data row3 col5" id="T_0ee0d_row3_col5">2011-03-01 08:30:00</td>
-<td class="data row3 col6" id="T_0ee0d_row3_col6">2011-03-31 19:55:00</td>
+<th class="row_heading level0 row3" id="T_0a6e6_level0_row3">2011-03</th>
+<td class="data row3 col0" id="T_0a6e6_row3_col0">36748</td>
+<td class="data row3 col1" id="T_0a6e6_row3_col1">8926</td>
+<td class="data row3 col2" id="T_0a6e6_row3_col2">699</td>
+<td class="data row3 col3" id="T_0a6e6_row3_col3">309</td>
+<td class="data row3 col4" id="T_0a6e6_row3_col4">24.29%</td>
+<td class="data row3 col5" id="T_0a6e6_row3_col5">2011-03-01 08:30:00</td>
+<td class="data row3 col6" id="T_0a6e6_row3_col6">2011-03-31 19:55:00</td>
 </tr>
 <tr>
-<th class="row_heading level0 row4" id="T_0ee0d_level0_row4">2011-04</th>
-<td class="data row4 col0" id="T_0ee0d_row4_col0">29916</td>
-<td class="data row4 col1" id="T_0ee0d_row4_col1">6718</td>
-<td class="data row4 col2" id="T_0ee0d_row4_col2">559</td>
-<td class="data row4 col3" id="T_0ee0d_row4_col3">215</td>
-<td class="data row4 col4" id="T_0ee0d_row4_col4">22.46%</td>
-<td class="data row4 col5" id="T_0ee0d_row4_col5">2011-04-01 08:22:00</td>
-<td class="data row4 col6" id="T_0ee0d_row4_col6">2011-04-28 19:53:00</td>
+<th class="row_heading level0 row4" id="T_0a6e6_level0_row4">2011-04</th>
+<td class="data row4 col0" id="T_0a6e6_row4_col0">29916</td>
+<td class="data row4 col1" id="T_0a6e6_row4_col1">6718</td>
+<td class="data row4 col2" id="T_0a6e6_row4_col2">559</td>
+<td class="data row4 col3" id="T_0a6e6_row4_col3">215</td>
+<td class="data row4 col4" id="T_0a6e6_row4_col4">22.46%</td>
+<td class="data row4 col5" id="T_0a6e6_row4_col5">2011-04-01 08:22:00</td>
+<td class="data row4 col6" id="T_0a6e6_row4_col6">2011-04-28 19:53:00</td>
 </tr>
 <tr>
-<th class="row_heading level0 row5" id="T_0ee0d_level0_row5">2011-05</th>
-<td class="data row5 col0" id="T_0ee0d_row5_col0">37030</td>
-<td class="data row5 col1" id="T_0ee0d_row5_col1">8122</td>
-<td class="data row5 col2" id="T_0ee0d_row5_col2">621</td>
-<td class="data row5 col3" id="T_0ee0d_row5_col3">248</td>
-<td class="data row5 col4" id="T_0ee0d_row5_col4">21.93%</td>
-<td class="data row5 col5" id="T_0ee0d_row5_col5">2011-05-01 10:51:00</td>
-<td class="data row5 col6" id="T_0ee0d_row5_col6">2011-05-31 15:53:00</td>
+<th class="row_heading level0 row5" id="T_0a6e6_level0_row5">2011-05</th>
+<td class="data row5 col0" id="T_0a6e6_row5_col0">37030</td>
+<td class="data row5 col1" id="T_0a6e6_row5_col1">8122</td>
+<td class="data row5 col2" id="T_0a6e6_row5_col2">621</td>
+<td class="data row5 col3" id="T_0a6e6_row5_col3">248</td>
+<td class="data row5 col4" id="T_0a6e6_row5_col4">21.93%</td>
+<td class="data row5 col5" id="T_0a6e6_row5_col5">2011-05-01 10:51:00</td>
+<td class="data row5 col6" id="T_0a6e6_row5_col6">2011-05-31 15:53:00</td>
 </tr>
 <tr>
-<th class="row_heading level0 row6" id="T_0ee0d_level0_row6">2011-06</th>
-<td class="data row6 col0" id="T_0ee0d_row6_col0">36874</td>
-<td class="data row6 col1" id="T_0ee0d_row6_col1">9038</td>
-<td class="data row6 col2" id="T_0ee0d_row6_col2">711</td>
-<td class="data row6 col3" id="T_0ee0d_row6_col3">265</td>
-<td class="data row6 col4" id="T_0ee0d_row6_col4">24.51%</td>
-<td class="data row6 col5" id="T_0ee0d_row6_col5">2011-06-01 07:37:00</td>
-<td class="data row6 col6" id="T_0ee0d_row6_col6">2011-06-30 20:08:00</td>
+<th class="row_heading level0 row6" id="T_0a6e6_level0_row6">2011-06</th>
+<td class="data row6 col0" id="T_0a6e6_row6_col0">36874</td>
+<td class="data row6 col1" id="T_0a6e6_row6_col1">9038</td>
+<td class="data row6 col2" id="T_0a6e6_row6_col2">711</td>
+<td class="data row6 col3" id="T_0a6e6_row6_col3">265</td>
+<td class="data row6 col4" id="T_0a6e6_row6_col4">24.51%</td>
+<td class="data row6 col5" id="T_0a6e6_row6_col5">2011-06-01 07:37:00</td>
+<td class="data row6 col6" id="T_0a6e6_row6_col6">2011-06-30 20:08:00</td>
 </tr>
 <tr>
-<th class="row_heading level0 row7" id="T_0ee0d_level0_row7">2011-07</th>
-<td class="data row7 col0" id="T_0ee0d_row7_col0">39518</td>
-<td class="data row7 col1" id="T_0ee0d_row7_col1">12016</td>
-<td class="data row7 col2" id="T_0ee0d_row7_col2">685</td>
-<td class="data row7 col3" id="T_0ee0d_row7_col3">251</td>
-<td class="data row7 col4" id="T_0ee0d_row7_col4">30.41%</td>
-<td class="data row7 col5" id="T_0ee0d_row7_col5">2011-07-01 08:16:00</td>
-<td class="data row7 col6" id="T_0ee0d_row7_col6">2011-07-31 16:04:00</td>
+<th class="row_heading level0 row7" id="T_0a6e6_level0_row7">2011-07</th>
+<td class="data row7 col0" id="T_0a6e6_row7_col0">39518</td>
+<td class="data row7 col1" id="T_0a6e6_row7_col1">12016</td>
+<td class="data row7 col2" id="T_0a6e6_row7_col2">685</td>
+<td class="data row7 col3" id="T_0a6e6_row7_col3">251</td>
+<td class="data row7 col4" id="T_0a6e6_row7_col4">30.41%</td>
+<td class="data row7 col5" id="T_0a6e6_row7_col5">2011-07-01 08:16:00</td>
+<td class="data row7 col6" id="T_0a6e6_row7_col6">2011-07-31 16:04:00</td>
 </tr>
 <tr>
-<th class="row_heading level0 row8" id="T_0ee0d_level0_row8">2011-08</th>
-<td class="data row8 col0" id="T_0ee0d_row8_col0">35284</td>
-<td class="data row8 col1" id="T_0ee0d_row8_col1">7622</td>
-<td class="data row8 col2" id="T_0ee0d_row8_col2">668</td>
-<td class="data row8 col3" id="T_0ee0d_row8_col3">220</td>
-<td class="data row8 col4" id="T_0ee0d_row8_col4">21.60%</td>
-<td class="data row8 col5" id="T_0ee0d_row8_col5">2011-08-01 08:30:00</td>
-<td class="data row8 col6" id="T_0ee0d_row8_col6">2011-08-31 17:45:00</td>
+<th class="row_heading level0 row8" id="T_0a6e6_level0_row8">2011-08</th>
+<td class="data row8 col0" id="T_0a6e6_row8_col0">35284</td>
+<td class="data row8 col1" id="T_0a6e6_row8_col1">7622</td>
+<td class="data row8 col2" id="T_0a6e6_row8_col2">668</td>
+<td class="data row8 col3" id="T_0a6e6_row8_col3">220</td>
+<td class="data row8 col4" id="T_0a6e6_row8_col4">21.60%</td>
+<td class="data row8 col5" id="T_0a6e6_row8_col5">2011-08-01 08:30:00</td>
+<td class="data row8 col6" id="T_0a6e6_row8_col6">2011-08-31 17:45:00</td>
 </tr>
 <tr>
-<th class="row_heading level0 row9" id="T_0ee0d_level0_row9">2011-09</th>
-<td class="data row9 col0" id="T_0ee0d_row9_col0">50226</td>
-<td class="data row9 col1" id="T_0ee0d_row9_col1">9404</td>
-<td class="data row9 col2" id="T_0ee0d_row9_col2">805</td>
-<td class="data row9 col3" id="T_0ee0d_row9_col3">365</td>
-<td class="data row9 col4" id="T_0ee0d_row9_col4">18.72%</td>
-<td class="data row9 col5" id="T_0ee0d_row9_col5">2011-09-01 08:25:00</td>
-<td class="data row9 col6" id="T_0ee0d_row9_col6">2011-09-30 17:22:00</td>
+<th class="row_heading level0 row9" id="T_0a6e6_level0_row9">2011-09</th>
+<td class="data row9 col0" id="T_0a6e6_row9_col0">50226</td>
+<td class="data row9 col1" id="T_0a6e6_row9_col1">9404</td>
+<td class="data row9 col2" id="T_0a6e6_row9_col2">805</td>
+<td class="data row9 col3" id="T_0a6e6_row9_col3">365</td>
+<td class="data row9 col4" id="T_0a6e6_row9_col4">18.72%</td>
+<td class="data row9 col5" id="T_0a6e6_row9_col5">2011-09-01 08:25:00</td>
+<td class="data row9 col6" id="T_0a6e6_row9_col6">2011-09-30 17:22:00</td>
 </tr>
 <tr>
-<th class="row_heading level0 row10" id="T_0ee0d_level0_row10">2011-10</th>
-<td class="data row10 col0" id="T_0ee0d_row10_col0">60742</td>
-<td class="data row10 col1" id="T_0ee0d_row10_col1">10047</td>
-<td class="data row10 col2" id="T_0ee0d_row10_col2">1200</td>
-<td class="data row10 col3" id="T_0ee0d_row10_col3">773</td>
-<td class="data row10 col4" id="T_0ee0d_row10_col4">16.54%</td>
-<td class="data row10 col5" id="T_0ee0d_row10_col5">2011-10-02 10:32:00</td>
-<td class="data row10 col6" id="T_0ee0d_row10_col6">2011-10-31 17:19:00</td>
+<th class="row_heading level0 row10" id="T_0a6e6_level0_row10">2011-10</th>
+<td class="data row10 col0" id="T_0a6e6_row10_col0">60742</td>
+<td class="data row10 col1" id="T_0a6e6_row10_col1">10047</td>
+<td class="data row10 col2" id="T_0a6e6_row10_col2">1200</td>
+<td class="data row10 col3" id="T_0a6e6_row10_col3">773</td>
+<td class="data row10 col4" id="T_0a6e6_row10_col4">16.54%</td>
+<td class="data row10 col5" id="T_0a6e6_row10_col5">2011-10-02 10:32:00</td>
+<td class="data row10 col6" id="T_0a6e6_row10_col6">2011-10-31 17:19:00</td>
 </tr>
 <tr>
-<th class="row_heading level0 row11" id="T_0ee0d_level0_row11">2011-11</th>
-<td class="data row11 col0" id="T_0ee0d_row11_col0">84711</td>
-<td class="data row11 col1" id="T_0ee0d_row11_col1">19113</td>
-<td class="data row11 col2" id="T_0ee0d_row11_col2">1076</td>
-<td class="data row11 col3" id="T_0ee0d_row11_col3">1368</td>
-<td class="data row11 col4" id="T_0ee0d_row11_col4">22.56%</td>
-<td class="data row11 col5" id="T_0ee0d_row11_col5">2011-11-01 08:16:00</td>
-<td class="data row11 col6" id="T_0ee0d_row11_col6">2011-11-30 17:42:00</td>
+<th class="row_heading level0 row11" id="T_0a6e6_level0_row11">2011-11</th>
+<td class="data row11 col0" id="T_0a6e6_row11_col0">84711</td>
+<td class="data row11 col1" id="T_0a6e6_row11_col1">19113</td>
+<td class="data row11 col2" id="T_0a6e6_row11_col2">1076</td>
+<td class="data row11 col3" id="T_0a6e6_row11_col3">1368</td>
+<td class="data row11 col4" id="T_0a6e6_row11_col4">22.56%</td>
+<td class="data row11 col5" id="T_0a6e6_row11_col5">2011-11-01 08:16:00</td>
+<td class="data row11 col6" id="T_0a6e6_row11_col6">2011-11-30 17:42:00</td>
 </tr>
 <tr>
-<th class="row_heading level0 row12" id="T_0ee0d_level0_row12">2011-12</th>
-<td class="data row12 col0" id="T_0ee0d_row12_col0">25525</td>
-<td class="data row12 col1" id="T_0ee0d_row12_col1">7864</td>
-<td class="data row12 col2" id="T_0ee0d_row12_col2">360</td>
-<td class="data row12 col3" id="T_0ee0d_row12_col3">279</td>
-<td class="data row12 col4" id="T_0ee0d_row12_col4">30.81%</td>
-<td class="data row12 col5" id="T_0ee0d_row12_col5">2011-12-01 08:12:00</td>
-<td class="data row12 col6" id="T_0ee0d_row12_col6">2011-12-09 12:50:00</td>
+<th class="row_heading level0 row12" id="T_0a6e6_level0_row12">2011-12</th>
+<td class="data row12 col0" id="T_0a6e6_row12_col0">25525</td>
+<td class="data row12 col1" id="T_0a6e6_row12_col1">7864</td>
+<td class="data row12 col2" id="T_0a6e6_row12_col2">360</td>
+<td class="data row12 col3" id="T_0a6e6_row12_col3">279</td>
+<td class="data row12 col4" id="T_0a6e6_row12_col4">30.81%</td>
+<td class="data row12 col5" id="T_0a6e6_row12_col5">2011-12-01 08:12:00</td>
+<td class="data row12 col6" id="T_0a6e6_row12_col6">2011-12-09 12:50:00</td>
 </tr>
 </tbody>
 </table>
@@ -9372,8 +9363,7 @@ a.anchor-link {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Checks">Checks<a class="anchor-link" href="#Checks">¶</a></h2><h3 id="8.-Reconcile-totals-and-preserve-the-source">8. Reconcile totals and preserve the source<a class="anchor-link" href="#8.-Reconcile-totals-and-preserve-the-source">¶</a></h3><p>We reconcile monthly counts to the complete file and repeat two important counts with Python iteration rather than pandas aggregation. We also verify that the original DataFrame and workbook fingerprint have not changed.</p>
-<p>These checks confirm the profiling calculations and source preservation. They do not prove that every source row is a genuine commercial transaction.</p>
+<h2 id="Reconciliation-and-source-preservation">Reconciliation and source preservation<a class="anchor-link" href="#Reconciliation-and-source-preservation">¶</a></h2><p>Monthly totals reconcile to source counts. Independent Python recounts verify missing customer IDs and C prefixes. Workbook and DataFrame fingerprints confirm that profiling preserves the source records. These checks validate the calculations, not the commercial legitimacy of every entry.</p>
 </div>
 </div>
 </div>
@@ -9421,8 +9411,7 @@ a.anchor-link {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Next-Steps">Next Steps<a class="anchor-link" href="#Next-Steps">¶</a></h2><h3 id="9.-Read-the-findings-and-choose-the-right-population">9. Read the findings and choose the right population<a class="anchor-link" href="#9.-Read-the-findings-and-choose-the-right-population">¶</a></h3><p>The notes below separate observations from proposed treatment. Counts come from the executed cells above; confidence in a count does not establish its business cause.</p>
-<p>We save a compact evidence summary for the next lesson. It contains quality counts, not a cleaned transaction dataset.</p>
+<h2 id="Findings-and-analytical-implications">Findings and analytical implications<a class="anchor-link" href="#Findings-and-analytical-implications">¶</a></h2><p>Observed counts, interpretation limits, and proposed treatments are exported to <code>docs/data_quality.md</code>. Compact evidence summaries are saved under <code>data/processed/</code>; they are not cleaned transaction records.</p>
 </div>
 </div>
 </div>
@@ -9442,7 +9431,7 @@ a.anchor-link {
 <span class="n">dupes</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">duplicate_extra</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
 <span class="n">unknown_customer_invoices</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">invoice_profile</span><span class="p">[</span><span class="s1">'Known_customers'</span><span class="p">]</span><span class="o">.</span><span class="n">eq</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
 
-<span class="n">notes</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"""# Stage 2 — Data quality findings</span>
+<span class="n">notes</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"""# Data quality findings</span>
 
 <span class="s2">Source: Chen, D. (2015), [UCI Online Retail](https://doi.org/10.24432/C5BW33), CC BY 4.0. Workbook: `data/raw/Online Retail.xlsx`, sheet `Online Retail`. SHA-256: `</span><span class="si">{</span><span class="n">source_hash</span><span class="si">}</span><span class="s2">`.</span>
 
@@ -9467,7 +9456,7 @@ a.anchor-link {
 
 <span class="s2">Source checksum and expected schema/shape; nulls and blank text; overlapping review flags; cancellation-by-quantity cross-tab; exact and normalized duplicate comparisons; numeric quantiles and extreme samples; item-code review candidates; invoice consistency; monthly completeness and volume; count reconciliations and independent Python recounts for missing customer IDs and C prefixes; unchanged source/DataFrame checks.</span>
 
-<span class="s2">## Next lesson: construct documented analysis populations</span>
+<span class="s2">## Recommended analytical treatment</span>
 
 <span class="s2">1. Define positive purchase lines, cancellation/credit entries, and other adjustments, retaining source row lineage.</span>
 <span class="s2">2. Keep anonymous eligible purchases for overall sales; restrict customer history to known IDs.</span>
@@ -9475,9 +9464,9 @@ a.anchor-link {
 <span class="s2">4. Review the item-code candidates before defining merchandise rankings.</span>
 <span class="s2">5. Record order eligibility, average order value, and revenue definitions before aggregation. Net recorded line value is not profit.</span>
 
-<span class="s2">No cleaned transaction dataset, finalized business KPI, RFM segmentation, or causal explanation is produced in this lesson.</span>
+<span class="s2">No cleaned transaction dataset, finalized business KPI, RFM segmentation, or causal explanation is produced by this assessment.</span>
 <span class="s2">"""</span>
-<span class="p">(</span><span class="n">PROJECT_ROOT</span> <span class="o">/</span> <span class="s1">'docs'</span> <span class="o">/</span> <span class="s1">'stage_02_notes.md'</span><span class="p">)</span><span class="o">.</span><span class="n">write_text</span><span class="p">(</span><span class="n">notes</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">'utf-8'</span><span class="p">)</span>
+<span class="p">(</span><span class="n">PROJECT_ROOT</span> <span class="o">/</span> <span class="s1">'docs'</span> <span class="o">/</span> <span class="s1">'data_quality.md'</span><span class="p">)</span><span class="o">.</span><span class="n">write_text</span><span class="p">(</span><span class="n">notes</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">'utf-8'</span><span class="p">)</span>
 <span class="n">summary</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s1">'source_sha256'</span><span class="p">:</span> <span class="n">source_hash</span><span class="p">,</span> <span class="s1">'raw_rows'</span><span class="p">:</span> <span class="n">row_count</span><span class="p">,</span>
     <span class="s1">'flags'</span><span class="p">:</span> <span class="p">{</span><span class="n">name</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">flags</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">items</span><span class="p">()},</span>
@@ -9504,7 +9493,7 @@ a.anchor-link {
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-OutputArea-output" data-mime-type="text/markdown" tabindex="0">
-<h1 id="Stage-2-%E2%80%94-Data-quality-findings">Stage 2 — Data quality findings<a class="anchor-link" href="#Stage-2-%E2%80%94-Data-quality-findings">¶</a></h1><p>Source: Chen, D. (2015), <a href="https://doi.org/10.24432/C5BW33">UCI Online Retail</a>, CC BY 4.0. Workbook: <code>data/raw/Online Retail.xlsx</code>, sheet <code>Online Retail</code>. SHA-256: <code>43465a06f2ccf7c8b5bd2892bc7defb52f97487934fe93b16ae4c3936424676d</code>.</p>
+<h1 id="Data-quality-findings">Data quality findings<a class="anchor-link" href="#Data-quality-findings">¶</a></h1><p>Source: Chen, D. (2015), <a href="https://doi.org/10.24432/C5BW33">UCI Online Retail</a>, CC BY 4.0. Workbook: <code>data/raw/Online Retail.xlsx</code>, sheet <code>Online Retail</code>. SHA-256: <code>43465a06f2ccf7c8b5bd2892bc7defb52f97487934fe93b16ae4c3936424676d</code>.</p>
 <p>Scope: 541,909 original invoice line items, eight columns, 01 December 2010–09 December 2011. Prices are GBP. No source rows were deleted or changed. Evidence and code: <code>notebooks/02_data_quality.ipynb</code>.</p>
 <table>
 <thead>
@@ -9559,14 +9548,14 @@ a.anchor-link {
 </table>
 <h2 id="Temporal-and-coverage-notes">Temporal and coverage notes<a class="anchor-link" href="#Temporal-and-coverage-notes">¶</a></h2><p>The chart and monthly table show missing-customer shares together with raw row denominators. Variation does not establish an ingestion failure or its cause. This is a static historical extract, so a modern freshness SLA does not apply. Missing IDs constrain observable customer coverage; date gaps may reflect trading patterns. There is no documented ingestion timestamp or timezone.</p>
 <h2 id="Checks-completed">Checks completed<a class="anchor-link" href="#Checks-completed">¶</a></h2><p>Source checksum and expected schema/shape; nulls and blank text; overlapping review flags; cancellation-by-quantity cross-tab; exact and normalized duplicate comparisons; numeric quantiles and extreme samples; item-code review candidates; invoice consistency; monthly completeness and volume; count reconciliations and independent Python recounts for missing customer IDs and C prefixes; unchanged source/DataFrame checks.</p>
-<h2 id="Next-lesson:-construct-documented-analysis-populations">Next lesson: construct documented analysis populations<a class="anchor-link" href="#Next-lesson:-construct-documented-analysis-populations">¶</a></h2><ol>
+<h2 id="Recommended-analytical-treatment">Recommended analytical treatment<a class="anchor-link" href="#Recommended-analytical-treatment">¶</a></h2><ol>
 <li>Define positive purchase lines, cancellation/credit entries, and other adjustments, retaining source row lineage.</li>
 <li>Keep anonymous eligible purchases for overall sales; restrict customer history to known IDs.</li>
 <li>Decide a duplicate baseline and calculate a with/without-exact-copy sensitivity, rather than asserting an unproven source error.</li>
 <li>Review the item-code candidates before defining merchandise rankings.</li>
 <li>Record order eligibility, average order value, and revenue definitions before aggregation. Net recorded line value is not profit.</li>
 </ol>
-<p>No cleaned transaction dataset, finalized business KPI, RFM segmentation, or causal explanation is produced in this lesson.</p>
+<p>No cleaned transaction dataset, finalized business KPI, RFM segmentation, or causal explanation is produced by this assessment.</p>
 </div>
 </div>
 </div>
@@ -9578,9 +9567,7 @@ a.anchor-link {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Your-checkpoint">Your checkpoint<a class="anchor-link" href="#Your-checkpoint">¶</a></h3><p>A row has a positive quantity, a positive price, and no customer ID. Should we remove it from <strong>all sales analysis</strong>, or keep it for sales while excluding it from <strong>customer purchase history</strong>? Explain why.</p>
-<p>Then look at the cancellation cross-tab: why would filtering only invoice IDs beginning with <code>C</code> leave some negative quantities behind?</p>
-<p>When you're ready, we will turn these observations into explicit cleaning rules and compare the retained populations.</p>
+<h2 id="Outstanding-decisions">Outstanding decisions<a class="anchor-link" href="#Outstanding-decisions">¶</a></h2><p>Purchase eligibility, cancellation/credit treatment, duplicate sensitivity, merchandise classification, and order-level metrics require documented population rules before sales and customer KPIs are finalized.</p>
 </div>
 </div>
 </div>

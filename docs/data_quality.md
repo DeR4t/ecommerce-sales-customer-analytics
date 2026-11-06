@@ -1,4 +1,4 @@
-# Stage 2 — Data quality findings
+# Data quality findings
 
 Source: Chen, D. (2015), [UCI Online Retail](https://doi.org/10.24432/C5BW33), CC BY 4.0. Workbook: `data/raw/Online Retail.xlsx`, sheet `Online Retail`. SHA-256: `43465a06f2ccf7c8b5bd2892bc7defb52f97487934fe93b16ae4c3936424676d`.
 
@@ -23,7 +23,7 @@ The chart and monthly table show missing-customer shares together with raw row d
 
 Source checksum and expected schema/shape; nulls and blank text; overlapping review flags; cancellation-by-quantity cross-tab; exact and normalized duplicate comparisons; numeric quantiles and extreme samples; item-code review candidates; invoice consistency; monthly completeness and volume; count reconciliations and independent Python recounts for missing customer IDs and C prefixes; unchanged source/DataFrame checks.
 
-## Next lesson: construct documented analysis populations
+## Recommended analytical treatment
 
 1. Define positive purchase lines, cancellation/credit entries, and other adjustments, retaining source row lineage.
 2. Keep anonymous eligible purchases for overall sales; restrict customer history to known IDs.
@@ -31,4 +31,4 @@ Source checksum and expected schema/shape; nulls and blank text; overlapping rev
 4. Review the item-code candidates before defining merchandise rankings.
 5. Record order eligibility, average order value, and revenue definitions before aggregation. Net recorded line value is not profit.
 
-No cleaned transaction dataset, finalized business KPI, RFM segmentation, or causal explanation is produced in this lesson.
+No cleaned transaction dataset, finalized business KPI, RFM segmentation, or causal explanation is produced by this assessment.

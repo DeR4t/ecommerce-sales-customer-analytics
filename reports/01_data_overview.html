@@ -7802,9 +7802,8 @@ a.anchor-link {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h1 id="01-%E2%80%94-A-first-look-at-Online-Retail">01 — A first look at Online Retail<a class="anchor-link" href="#01-%E2%80%94-A-first-look-at-Online-Retail">¶</a></h1><h2 id="Goal">Goal<a class="anchor-link" href="#Goal">¶</a></h2><p>Learn how to load a real dataset and understand what one row represents before calculating sales metrics. This is the first lesson in our E-commerce Sales &amp; Customer Analytics project.</p>
-<p><strong>In this lesson:</strong> load the workbook, preview five rows, inspect types and coverage, and flag questions for cleaning. No source rows are changed or removed.</p>
-<p>Source: Chen, D. (2015). <a href="https://doi.org/10.24432/C5BW33">Online Retail, UCI</a>, CC BY 4.0. Prices are in GBP. This is historical data, not a live store feed.</p>
+<h1 id="Dataset-overview">Dataset overview<a class="anchor-link" href="#Dataset-overview">¶</a></h1><h2 id="Summary">Summary<a class="anchor-link" href="#Summary">¶</a></h2><p>Source verification and structural profiling of UCI Online Retail. The workbook contains 541,909 invoice line items across eight columns, covering December 2010 to December 2011. Prices are GBP.</p>
+<p>Source: Chen, D. (2015). <a href="https://doi.org/10.24432/C5BW33">Online Retail, UCI</a>, CC BY 4.0. Each row represents an invoice line item; distinct invoice identifiers are not equivalent to completed purchase orders.</p>
 </div>
 </div>
 </div>
@@ -7815,8 +7814,7 @@ a.anchor-link {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Setup">Setup<a class="anchor-link" href="#Setup">¶</a></h2><p>Launch JupyterLab using the project's <code>.venv</code> as described in <code>README.md</code>. Select the <strong>E-commerce Analytics (.venv)</strong> kernel if prompted. Run the cells from top to bottom; loading the Excel workbook may take a minute.</p>
-<p><code>pandas</code> gives us a <strong>DataFrame</strong>: a table with named columns and numbered rows. We use <code>Path</code> to locate files without hardcoding a machine-specific path.</p>
+<h2 id="Environment-and-scope">Environment and scope<a class="anchor-link" href="#Environment-and-scope">¶</a></h2><p>The complete original workbook is loaded without filtering. Identifier columns are read as text. Runtime versions are recorded below; exact dependencies are retained in <code>requirements-lock.txt</code>.</p>
 </div>
 </div>
 </div>
@@ -7844,12 +7842,11 @@ a.anchor-link {
     <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="k">if</span> <span class="n">PROJECT_ROOT</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-    <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="s1">'Open this notebook from within the project folder.'</span><span class="p">)</span>
+    <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="s1">'Notebook must run within the project directory.'</span><span class="p">)</span>
 
 <span class="n">DATA_FILE</span> <span class="o">=</span> <span class="n">PROJECT_ROOT</span> <span class="o">/</span> <span class="s1">'data'</span> <span class="o">/</span> <span class="s1">'raw'</span> <span class="o">/</span> <span class="s1">'Online Retail.xlsx'</span>
 <span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">'display.max_columns'</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'Python: </span><span class="si">{</span><span class="n">sys</span><span class="o">.</span><span class="n">version</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s1"> | pandas: </span><span class="si">{</span><span class="n">pd</span><span class="o">.</span><span class="n">__version__</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'Project folder: </span><span class="si">{</span><span class="n">PROJECT_ROOT</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -7863,7 +7860,6 @@ a.anchor-link {
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
 <pre>Python: 3.14.6 | pandas: 3.1.1
-Project folder: C:\Users\Dev\Documents\ChatGPT\E-commerce Sales &amp; Customer Analytics
 </pre>
 </div>
 </div>
@@ -7876,8 +7872,7 @@ Project folder: C:\Users\Dev\Documents\ChatGPT\E-commerce Sales &amp; Customer A
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Steps">Steps<a class="anchor-link" href="#Steps">¶</a></h2><h3 id="1.-Verify-and-load-the-source">1. Verify and load the source<a class="anchor-link" href="#1.-Verify-and-load-the-source">¶</a></h3><p>The downloader records a checksum, which acts as a fingerprint of the source file. We verify it before loading. IDs are labels, so we read them as text. <code>openpyxl</code> is the engine that reads this Excel format.</p>
-<p>The eight columns come from the workbook itself. We inspect all raw rows; no customer filter or cleaning is applied.</p>
+<h2 id="Source-verification">Source verification<a class="anchor-link" href="#Source-verification">¶</a></h2><p>The workbook checksum is compared with the ingestion manifest before loading the <code>Online Retail</code> sheet. The original file is not modified.</p>
 </div>
 </div>
 </div>
@@ -7928,8 +7923,7 @@ Project folder: C:\Users\Dev\Documents\ChatGPT\E-commerce Sales &amp; Customer A
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="2.-Preview-five-rows">2. Preview five rows<a class="anchor-link" href="#2.-Preview-five-rows">¶</a></h3><p><code>head()</code> shows the first five rows. Look for repeated invoice numbers: each row describes an item on an invoice, and one invoice can include several items.</p>
-<p><strong>A row is not an order.</strong> We will count distinct eligible purchase invoices when calculating order metrics later.</p>
+<h2 id="Source-sample">Source sample<a class="anchor-link" href="#Source-sample">¶</a></h2><p>Five original rows illustrate the invoice-line grain. Repeated invoice IDs represent multiple entries on an invoice.</p>
 </div>
 </div>
 </div>
@@ -8052,7 +8046,7 @@ Project folder: C:\Users\Dev\Documents\ChatGPT\E-commerce Sales &amp; Customer A
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="3.-Understand-the-columns">3. Understand the columns<a class="anchor-link" href="#3.-Understand-the-columns">¶</a></h3><p>The data dictionary explains what each field means. This table checks the types pandas actually loaded. A non-null value is a value that is present; missing identifiers need special care in customer analysis.</p>
+<h2 id="Schema-and-completeness">Schema and completeness<a class="anchor-link" href="#Schema-and-completeness">¶</a></h2><p>Loaded column types, populated values, and missing-value counts are inspected against the source data dictionary.</p>
 </div>
 </div>
 </div>
@@ -8168,8 +8162,7 @@ Project folder: C:\Users\Dev\Documents\ChatGPT\E-commerce Sales &amp; Customer A
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="4.-Inspect-coverage-and-identifiers">4. Inspect coverage and identifiers<a class="anchor-link" href="#4.-Inspect-coverage-and-identifiers">¶</a></h3><p>These counts describe the raw file, including cancellations and adjustments. Distinct invoice IDs here should not be interpreted as completed purchase orders. Customer counts omit missing IDs.</p>
-<p>The first and last timestamps describe the observed period. The final calendar month is incomplete, which will matter when comparing monthly sales.</p>
+<h2 id="Coverage-and-identifier-cardinality">Coverage and identifier cardinality<a class="anchor-link" href="#Coverage-and-identifier-cardinality">¶</a></h2><p>Counts include cancellations and adjustments. Customer cardinality excludes missing IDs. The final calendar month is partial.</p>
 </div>
 </div>
 </div>
@@ -8262,7 +8255,7 @@ Project folder: C:\Users\Dev\Documents\ChatGPT\E-commerce Sales &amp; Customer A
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Checks">Checks<a class="anchor-link" href="#Checks">¶</a></h2><h3 id="5.-Confirm-that-we-loaded-the-intended-dataset">5. Confirm that we loaded the intended dataset<a class="anchor-link" href="#5.-Confirm-that-we-loaded-the-intended-dataset">¶</a></h3><p>These checks compare the workbook shape and column names with UCI's description, and verify that invoice dates were parsed as dates. A failed check is a reason to investigate the input, not to edit the raw file to make the check pass.</p>
+<h2 id="Validation">Validation<a class="anchor-link" href="#Validation">¶</a></h2><p>Assertions check the expected schema, source dimensions, and datetime parsing. The input checksum is verified during ingestion.</p>
 </div>
 </div>
 </div>
@@ -8307,15 +8300,7 @@ Project folder: C:\Users\Dev\Documents\ChatGPT\E-commerce Sales &amp; Customer A
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Next-Steps">Next Steps<a class="anchor-link" href="#Next-Steps">¶</a></h2><p>Before we calculate revenue or rank customers, we will inspect:</p>
-<ul>
-<li>Missing customer IDs: how can we keep anonymous sales without treating them as one customer?</li>
-<li>Invoice IDs starting with <code>C</code>: how should cancellations/credits enter revenue and order counts?</li>
-<li>Unusual quantities and prices: which rows are purchases, adjustments, or something else?</li>
-<li>Identical-looking rows: are they duplicates or repeated entries that need evidence before removal?</li>
-</ul>
-<p><strong>Your checkpoint:</strong> in the five-row preview, find two rows with the same <code>InvoiceNo</code>. Which columns change? Explain why counting rows would overstate the number of orders.</p>
-<p>This notebook deliberately stops before cleaning. We will document the population and metric rules in <code>docs/analysis_decisions.md</code> as we investigate.</p>
+<h2 id="Analytical-implications">Analytical implications<a class="anchor-link" href="#Analytical-implications">¶</a></h2><p>Customer-level coverage, cancellations, duplicate-looking rows, numeric exceptions, and product-code classifications require review before business metrics are aggregated. The accompanying data quality assessment documents those findings.</p>
 </div>
 </div>
 </div>
