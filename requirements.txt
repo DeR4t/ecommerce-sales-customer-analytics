@@ -1,0 +1,9 @@
+pandas>=2.2,<4
+openpyxl>=3.1,<4
+matplotlib>=3.9,<4
+seaborn>=0.13,<1
+jupyterlab>=4,<5
+nbformat>=5.10,<6
+nbclient>=0.10,<1
+nbconvert>=7,<8
+ipykernel>=6,<8
