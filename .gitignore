@@ -9,3 +9,4 @@ data/processed/*
 database/*.db
 database/*.sqlite
 database/*.sqlite3
+database/*.sqlite3-*

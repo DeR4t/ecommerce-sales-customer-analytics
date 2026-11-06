@@ -16,3 +16,5 @@ Source: [UCI Online Retail](https://archive.ics.uci.edu/dataset/352/online+retai
 The dataset contains 541,909 invoice line items and eight columns. UCI's feature count excludes ID columns. Inspect the downloaded workbook directly for missingness even where the source metadata says no missing values.
 
 Do not infer cost, profit, discount amounts, demographics, acquisition channel, or website conversion rates: these fields are unavailable.
+
+SQLite preserves these source fields in `raw_transactions` using snake_case names, with `source_row_number` added for Excel-row lineage. See [SQLite ingestion](sqlite_ingestion.md) for types, NULL handling, and reconciliation results.

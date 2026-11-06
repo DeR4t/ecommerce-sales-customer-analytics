@@ -22,8 +22,9 @@ The project is timeboxed to 12–15 workdays at 1–2 hours per day, with a maxi
 | [Quality findings](docs/data_quality.md) | Observed issues, analytical implications, and proposed treatment |
 | [Completeness chart](reports/figures/02_customer_id_completeness.png) | Monthly customer-ID coverage and source row counts |
 | [Methodology](docs/analysis_decisions.md) | Population definitions, assumptions, and outstanding decisions |
+| [SQLite ingestion](docs/sqlite_ingestion.md) | Raw schema, reproducible loading, and complete source reconciliation |
 
-Executed notebooks and HTML exports are included. Revenue KPIs, SQLite models, and customer segmentation are pending; current outputs establish the source's suitability for those analyses.
+Executed notebooks and HTML exports are included, and the original records are loaded and reconciled in SQLite. Cleaning, business SQL queries, revenue KPIs, and customer segmentation remain pending.
 
 ## Data
 
@@ -40,6 +41,7 @@ python -m venv .venv
 .\.venv\Scripts\python.exe -m pip install -r requirements-lock.txt
 Invoke-WebRequest -Uri 'https://archive.ics.uci.edu/static/public/352/online+retail.zip' -OutFile 'data\raw\online_retail.zip'
 .\.venv\Scripts\python.exe scripts\download_data.py
+.\.venv\Scripts\python.exe scripts\load_sqlite.py
 .\.venv\Scripts\python.exe -m ipykernel install --prefix .venv --name ecommerce-analytics --display-name "E-commerce Analytics (.venv)"
 .\.venv\Scripts\python.exe scripts\run_notebook.py notebooks\01_data_overview.ipynb
 .\.venv\Scripts\python.exe scripts\run_notebook.py notebooks\02_data_quality.ipynb

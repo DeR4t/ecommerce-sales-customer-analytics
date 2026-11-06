@@ -39,9 +39,9 @@ Completed, verified changes are committed and pushed throughout the project. Rep
 
 ## Current position
 
-- Dataset download, environment setup, Python loading, source documentation, and quality inspection are complete.
-- SQLite ingestion remains outstanding within setup.
-- Cleaning rules have not been applied and no source transaction rows have been removed.
+- **Stage 1 is complete:** dataset download, environment setup, Python loading, source documentation, quality inspection, and verified SQLite ingestion are finished.
+- SQLite retains all 541,909 original records. Source summaries and a comparison covering every row and field passed; a repeat import verified the existing database without changing it. See [SQLite ingestion](sqlite_ingestion.md).
+- **Stage 2 has not started:** cleaning rules have not been applied and no source transaction rows have been removed.
 - Historical effort has not been measured, so no consumed-hour estimate is asserted.
 
-The next implementation milestone is to close SQLite ingestion, then complete the two-day cleaning allocation before starting business SQL analysis.
+The next implementation milestone is the two-day cleaning allocation, followed by business SQL analysis. Stage 1 was closed on 6 November 2026.
