@@ -9,6 +9,10 @@ Reproducible analysis of transaction records from a UK online retailer, focused 
 - Measure repeat purchasing and customer value.
 - Segment identified customers using recency, frequency, and monetary value (RFM).
 
+## Delivery plan
+
+The project is timeboxed to 12–15 workdays at 1–2 hours per day, with a maximum planned effort of 30 hours. The [delivery plan](docs/project_plan.md) defines stage allocations, scope limits, completion criteria, and current progress.
+
 ## Available outputs
 
 | Artifact | Contents |
