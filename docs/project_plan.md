@@ -42,6 +42,7 @@ Completed, verified changes are committed and pushed throughout the project. Rep
 - **Stage 1 is complete:** dataset download, environment setup, Python loading, source documentation, quality inspection, and verified SQLite ingestion are finished.
 - SQLite retains all 541,909 original records. Source summaries and a comparison covering every row and field passed; a repeat import verified the existing database without changing it. See [SQLite ingestion](sqlite_ingestion.md).
 - **Stage 2 is complete:** the reproducible cleaning pipeline preserves all 541,909 source rows in an audit ledger and saves 527,761 eligible merchandise-purchase rows plus a 396,340-row identified-customer subset. Item-code review, exact-copy sensitivity, independent SQL reconciliation, and exact export read-back checks passed. See [transaction cleaning](data_cleaning.md).
+- Follow-up verification added trimmed analytical labels/keys and a typed timestamp without changing analytical populations or values. All 15 regression tests and independent full-data checks across schema, missingness, boundaries/outliers, duplicates/keys, and business rules passed with disclosed warnings and no blocked checks.
 - The cleaning notebook executed top-to-bottom and its HTML export was generated. Visual inspection of that export remains uncompleted because the preview browser blocks local-file URLs; this presentation gap does not affect the executed data reconciliation.
 - Historical effort before timed session tracking has not been measured, so no retrospective consumed-hour estimate is asserted.
 

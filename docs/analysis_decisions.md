@@ -26,7 +26,7 @@ Evidence: [data quality notebook](../notebooks/02_data_quality.ipynb) and [quali
 - Retain exact copies in the baseline; publish a sensitivity excluding copies beyond the first. Preserve cancellations, nonpositive values, non-merchandise, and unresolved manual entries in the complete ledger.
 - Store monetary calculations in integer thousandths of GBP to retain the observed £0.001 price precision. Gross purchase value excludes credits and is not net revenue or profit. Signed all-source value includes adjustments and is not net merchandise revenue.
 - Eligible orders are distinct invoice IDs containing eligible purchase lines. Gross merchandise average order value divides purchase value by that order count. Use the earliest eligible line timestamp per invoice for later invoice-level date aggregation.
-- Keep source strings unchanged; derive a normalized item-code key for classification. Preserve unusual merchandise codes and numeric extremes.
+- Keep source strings unchanged; derive trimmed identifiers and labels, an uppercase item-code key for classification, and a typed analytical timestamp. Preserve unusual merchandise codes and numeric extremes. Required fields and supported types must pass validation; optional missing customer IDs and descriptions remain missing.
 
 Rules, classification assumptions, reconciliation results, and duplicate sensitivity: [transaction cleaning](data_cleaning.md). The reproducible outputs retain source-row lineage.
 

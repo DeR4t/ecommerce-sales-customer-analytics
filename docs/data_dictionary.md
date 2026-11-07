@@ -18,3 +18,22 @@ The dataset contains 541,909 invoice line items and eight columns. UCI's feature
 Do not infer cost, profit, discount amounts, demographics, acquisition channel, or website conversion rates: these fields are unavailable.
 
 SQLite preserves these source fields in `raw_transactions` using snake_case names, with `source_row_number` added for Excel-row lineage. See [SQLite ingestion](sqlite_ingestion.md) for types, NULL handling, and reconciliation results.
+
+## Derived cleaning fields
+
+The cleaning ledger and its purchase subsets retain all source fields and add:
+
+| Field | Type and meaning |
+| --- | --- |
+| `invoice_timestamp` | Timezone-naive datetime parsed from the original invoice date text; source timezone is unknown |
+| `invoice_no_key`, `customer_id_key` | Trimmed text identifiers; a blank optional customer identifier becomes missing |
+| `stock_code_key` | Trimmed uppercase item code used for reviewed classification |
+| `description_clean`, `country_clean` | Trimmed text labels; missing descriptions remain missing |
+| `item_class` | Reviewed merchandise, non-merchandise, or unresolved classification |
+| `is_cancellation`, `has_customer_id` | Boolean indicators derived from normalized identifiers |
+| `is_exact_copy_beyond_first` | Boolean equality flag over all eight original source fields, retaining the first source row |
+| `unit_price_millipounds`, `line_value_millipounds` | Signed 64-bit integer monetary values in thousandths of GBP |
+| `row_status` | Exclusive status assigned using documented exclusion precedence |
+| `is_sales_eligible`, `is_customer_eligible` | Boolean purchase and identified-customer eligibility flags |
+
+Use the cleaning module's `read_export` loader to restore text identifiers, missing values, and the analytical timestamp type from compressed CSV. See [transaction cleaning](data_cleaning.md) for eligibility and monetary definitions.

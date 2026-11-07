@@ -21,6 +21,12 @@ Implementation: `scripts/clean_transactions.py`. Executed evidence: [cleaning no
 
 `stock_code_key` is a derived uppercase, trimmed key; original item codes and descriptions are preserved. Two-letter suffixes such as `15056BL` remain merchandise. Descriptive `DCGS` codes include real merchandise and are reviewed individually. The classification is an analytical assumption based on source descriptions, not an independently verified product catalog.
 
+### Typed analytical fields
+
+The original source columns remain unchanged. Derived `invoice_no_key`, `customer_id_key`, `country_clean`, and `description_clean` fields strip surrounding whitespace; empty optional labels and IDs become missing values rather than invented replacements. `stock_code_key` also converts letter case to uppercase. The source contains 113,452 descriptions with surrounding whitespace, so `description_clean` provides consistent display labels while preserving the original evidence.
+
+`invoice_timestamp` is a timezone-naive `datetime64[ns]` analytical field parsed from the original ISO date text. The export loader restores its datetime type. Source dates must parse and fall within the documented extract dates, 1 December 2010 through 9 December 2011. Schema validation rejects incorrect source types, non-finite numeric values, fractional quantities, and invalid Excel-row lineage. Export read-back verification compares both values and dtypes.
+
 ## Exclusive status and overlapping flags
 
 For a count bridge, assign the first applicable status in this order: cancellation, nonpositive quantity, nonpositive price, non-merchandise, unresolved item, eligible purchase. This precedence prevents double counting; the status does not enumerate every issue on the row. Original fields and independent flags preserve overlapping conditions.
@@ -72,14 +78,39 @@ The merchandise value reduction is approximately 0.236% of the retained-row base
 ```powershell
 .\.venv\Scripts\python.exe -m unittest discover -s tests -v
 .\.venv\Scripts\python.exe scripts\clean_transactions.py
+.\.venv\Scripts\python.exe scripts\validate_cleaning.py
 .\.venv\Scripts\python.exe scripts\run_notebook.py notebooks\03_data_cleaning.ipynb
 ```
 
 The notebook also runs the pipeline, so the standalone cleaning command is optional when running the notebook. Prerequisites are the verified workbook and SQLite ingestion described in the README.
 
+`scripts/validate_cleaning.py` independently recomputes expected results from the raw SQLite records and classification registry, then checks every row of all three saved populations in five categories: schema/types, nulls/empty values, numeric/date boundaries and outliers, duplicates/keys, and business rules. It verifies source/export fingerprints, normalized fields, source lineage, population membership, flags, and exact integer monetary values without calling the cleaning classifier. Mutation tests deliberately corrupt representative inputs to verify that the checks detect errors. A schema-blocked check is recorded as incomplete rather than passed.
+
+Validation results and full per-column missingness profiles are saved locally in `data/processed/cleaning_qa_results.json`. Row-level findings are saved in `data/processed/cleaning_qa_anomalies.csv.gz`, including source Excel row, invoice, item, field, value, reason, and severity. These files remain excluded from Git. Warnings can overlap on the same source row; their counts must not be summed as distinct records. Optional source nulls, retained exact copies, and positive purchase extremes are disclosed review conditions rather than automatic evidence of invalid purchases. High purchase quantities and prices are flagged using the upper outer Tukey fence, Q3 + 3 × IQR, calculated separately for each field over eligible purchases; flags do not trigger deletion.
+
 Checks cover source fingerprint and raw-record digest, SQLite integrity, immutable raw columns, unique lineage, required fields, date parsing, supported price precision, item-code coverage, membership boundary cases, count and monetary reconciliation by status using independent SQL, customer/anonymous reconciliation, and an exact read-back comparison of every exported field. A repeated run checks deterministic export hashes. Exports are validated in a temporary directory before replacement; the summary is published last and its hashes identify the completed file set. Consumers should verify those hashes if a run is interrupted during publication.
 
-Verification on 7 November 2026: three focused tests passed; the six-cell notebook executed top-to-bottom; all three export hashes matched the earlier full run. The HTML export was generated and checked structurally for expected content and saved table outputs. **Visual layout inspection remains uncompleted:** the preview browser rejects local-file URLs. No visual acceptance is claimed.
+Initial verification on 7 November 2026: three focused tests passed; the six-cell notebook executed top-to-bottom; all three export hashes matched the earlier full run. The HTML export was generated and checked structurally for expected content and saved table outputs. **Visual layout inspection remains uncompleted:** the preview browser rejects local-file URLs. No visual acceptance is claimed.
+
+### Follow-up quality verification
+
+Follow-up verification on 7 November 2026 added typed analytical fields, strict dtype reconciliation, input guards, and independent full-data QA. All 15 regression test methods passed, including deliberately corrupted schema, nulls, dates, numeric boundaries, primary keys, monetary values, and population membership. All original source columns, population counts, status counts, purchase values, and duplicate sensitivity results remained unchanged.
+
+The independent audit compared every field in the ledger, sales, and customer exports against expectations derived directly from all 541,909 raw records. Source and export fingerprints matched. There were **zero hard failures and zero blocked checks**.
+
+| Check | Final result |
+| --- | --- |
+| Exact 24-column schema and types | Passed |
+| Null and empty values | Passed with optional-source missingness warnings; no missing required fields |
+| Numeric/date boundaries and outliers | Passed with disclosed source adjustments and positive-extreme review flags; no invalid purchase boundaries or dates |
+| Duplicate rows and keys | Passed with retained exact-copy warnings; no duplicate source-row primary keys |
+| Business rules and source reconciliation | Passed for normalized fields, eligibility, flags, memberships, original fields, and exact monetary values |
+
+The ledger retains 135,080 missing customer IDs and 1,454 missing descriptions. Sales retain 131,421 anonymous purchase lines (24.90% of eligible purchase rows); the customer dataset contains no missing values. The source's 113,452 whitespace-affected descriptions are preserved with trimmed analytical labels. Exact copies remain under the baseline policy.
+
+The outlier review flagged 19,320 eligible quantities above 41 and 10,143 eligible unit prices above GBP 12.77 using the documented outer-fence method. These are review flags, not verified errors, and no rows were removed on this basis. The anomaly log contains 307,727 overlapping warning records across 250,138 distinct source rows; those totals must not be interpreted as defective-record counts.
+
+The final datasets are suitable for the defined gross-merchandise-purchase analysis with disclosed coverage and sensitivity limitations. This verification does not establish refund-adjusted customer spending or accounting revenue.
 
 ## Remaining limits
 

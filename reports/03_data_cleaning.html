@@ -7820,7 +7820,7 @@ a.anchor-link {
 <li>Anonymous eligible purchases remain in sales; customer analysis requires an ID.</li>
 <li>Repeated identical lines may be legitimate, so retain them and report a sensitivity.</li>
 <li>Fees, postage, vouchers, samples, and unresolved manual entries are outside merchandise purchases. Classification is inferred from source descriptions.</li>
-<li>Preserve all original strings; normalize only the derived product-code key. Keep extreme values; no credit matching or outlier trimming is assumed.</li>
+<li>Preserve all original strings; use derived trimmed identifier/label fields, an uppercase product-code key, and a parsed analytical timestamp. Keep extreme values; no credit matching or outlier trimming is assumed.</li>
 <li>Monetary calculations use integer thousandths of GBP, preserving observed prices of GBP 0.001.</li>
 </ul>
 <p>See <a href="../docs/data_cleaning.md">cleaning methodology</a> and <code>scripts/clean_transactions.py</code> for complete rules and verification. The following execution regenerates all three local exports from read-only raw SQLite records.</p>
@@ -7920,44 +7920,44 @@ Raw columns preserved; three local exports written and read back exactly.
 <div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output" data-mime-type="text/html" tabindex="0">
 <style type="text/css">
 </style>
-<table id="T_a4f02">
+<table id="T_3a140">
 <thead>
 <tr>
-<th class="col_heading level0 col0" id="T_a4f02_level0_col0">Status</th>
-<th class="col_heading level0 col1" id="T_a4f02_level0_col1">Source rows</th>
-<th class="col_heading level0 col2" id="T_a4f02_level0_col2">Share of source (%)</th>
+<th class="col_heading level0 col0" id="T_3a140_level0_col0">Status</th>
+<th class="col_heading level0 col1" id="T_3a140_level0_col1">Source rows</th>
+<th class="col_heading level0 col2" id="T_3a140_level0_col2">Share of source (%)</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td class="data row0 col0" id="T_a4f02_row0_col0">eligible_purchase</td>
-<td class="data row0 col1" id="T_a4f02_row0_col1">527,761</td>
-<td class="data row0 col2" id="T_a4f02_row0_col2">97.39</td>
+<td class="data row0 col0" id="T_3a140_row0_col0">eligible_purchase</td>
+<td class="data row0 col1" id="T_3a140_row0_col1">527,761</td>
+<td class="data row0 col2" id="T_3a140_row0_col2">97.39</td>
 </tr>
 <tr>
-<td class="data row1 col0" id="T_a4f02_row1_col0">cancellation</td>
-<td class="data row1 col1" id="T_a4f02_row1_col1">9,288</td>
-<td class="data row1 col2" id="T_a4f02_row1_col2">1.71</td>
+<td class="data row1 col0" id="T_3a140_row1_col0">cancellation</td>
+<td class="data row1 col1" id="T_3a140_row1_col1">9,288</td>
+<td class="data row1 col2" id="T_3a140_row1_col2">1.71</td>
 </tr>
 <tr>
-<td class="data row2 col0" id="T_a4f02_row2_col0">non_merchandise</td>
-<td class="data row2 col1" id="T_a4f02_row2_col1">2,021</td>
-<td class="data row2 col2" id="T_a4f02_row2_col2">0.37</td>
+<td class="data row2 col0" id="T_3a140_row2_col0">non_merchandise</td>
+<td class="data row2 col1" id="T_3a140_row2_col1">2,021</td>
+<td class="data row2 col2" id="T_3a140_row2_col2">0.37</td>
 </tr>
 <tr>
-<td class="data row3 col0" id="T_a4f02_row3_col0">nonpositive_quantity</td>
-<td class="data row3 col1" id="T_a4f02_row3_col1">1,336</td>
-<td class="data row3 col2" id="T_a4f02_row3_col2">0.25</td>
+<td class="data row3 col0" id="T_3a140_row3_col0">nonpositive_quantity</td>
+<td class="data row3 col1" id="T_3a140_row3_col1">1,336</td>
+<td class="data row3 col2" id="T_3a140_row3_col2">0.25</td>
 </tr>
 <tr>
-<td class="data row4 col0" id="T_a4f02_row4_col0">nonpositive_price</td>
-<td class="data row4 col1" id="T_a4f02_row4_col1">1,181</td>
-<td class="data row4 col2" id="T_a4f02_row4_col2">0.22</td>
+<td class="data row4 col0" id="T_3a140_row4_col0">nonpositive_price</td>
+<td class="data row4 col1" id="T_3a140_row4_col1">1,181</td>
+<td class="data row4 col2" id="T_3a140_row4_col2">0.22</td>
 </tr>
 <tr>
-<td class="data row5 col0" id="T_a4f02_row5_col0">unresolved_item</td>
-<td class="data row5 col1" id="T_a4f02_row5_col1">322</td>
-<td class="data row5 col2" id="T_a4f02_row5_col2">0.06</td>
+<td class="data row5 col0" id="T_3a140_row5_col0">unresolved_item</td>
+<td class="data row5 col1" id="T_3a140_row5_col1">322</td>
+<td class="data row5 col2" id="T_3a140_row5_col2">0.06</td>
 </tr>
 </tbody>
 </table>
@@ -8007,49 +8007,49 @@ Raw columns preserved; three local exports written and read back exactly.
 <div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output" data-mime-type="text/html" tabindex="0">
 <style type="text/css">
 </style>
-<table id="T_40be6">
+<table id="T_8ac92">
 <thead>
 <tr>
 <th class="blank level0"> </th>
-<th class="col_heading level0 col0" id="T_40be6_level0_col0">Rows</th>
-<th class="col_heading level0 col1" id="T_40be6_level0_col1">Invoice IDs</th>
-<th class="col_heading level0 col2" id="T_40be6_level0_col2">Known customer IDs</th>
-<th class="col_heading level0 col3" id="T_40be6_level0_col3">Quantity</th>
-<th class="col_heading level0 col4" id="T_40be6_level0_col4">Line value (GBP)</th>
+<th class="col_heading level0 col0" id="T_8ac92_level0_col0">Rows</th>
+<th class="col_heading level0 col1" id="T_8ac92_level0_col1">Invoice IDs</th>
+<th class="col_heading level0 col2" id="T_8ac92_level0_col2">Known customer IDs</th>
+<th class="col_heading level0 col3" id="T_8ac92_level0_col3">Quantity</th>
+<th class="col_heading level0 col4" id="T_8ac92_level0_col4">Line value (GBP)</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<th class="row_heading level0 row0" id="T_40be6_level0_row0">all_recorded_lines</th>
-<td class="data row0 col0" id="T_40be6_row0_col0">541,909</td>
-<td class="data row0 col1" id="T_40be6_row0_col1">25,900</td>
-<td class="data row0 col2" id="T_40be6_row0_col2">4,372</td>
-<td class="data row0 col3" id="T_40be6_row0_col3">5,176,450</td>
-<td class="data row0 col4" id="T_40be6_row0_col4">9,747,747.934</td>
+<th class="row_heading level0 row0" id="T_8ac92_level0_row0">all_recorded_lines</th>
+<td class="data row0 col0" id="T_8ac92_row0_col0">541,909</td>
+<td class="data row0 col1" id="T_8ac92_row0_col1">25,900</td>
+<td class="data row0 col2" id="T_8ac92_row0_col2">4,372</td>
+<td class="data row0 col3" id="T_8ac92_row0_col3">5,176,450</td>
+<td class="data row0 col4" id="T_8ac92_row0_col4">9,747,747.934</td>
 </tr>
 <tr>
-<th class="row_heading level0 row1" id="T_40be6_level0_row1">merchandise_purchases</th>
-<td class="data row1 col0" id="T_40be6_row1_col0">527,761</td>
-<td class="data row1 col1" id="T_40be6_row1_col1">19,773</td>
-<td class="data row1 col2" id="T_40be6_row1_col2">4,334</td>
-<td class="data row1 col3" id="T_40be6_row1_col3">5,577,103</td>
-<td class="data row1 col4" id="T_40be6_row1_col4">10,271,433.063</td>
+<th class="row_heading level0 row1" id="T_8ac92_level0_row1">merchandise_purchases</th>
+<td class="data row1 col0" id="T_8ac92_row1_col0">527,761</td>
+<td class="data row1 col1" id="T_8ac92_row1_col1">19,773</td>
+<td class="data row1 col2" id="T_8ac92_row1_col2">4,334</td>
+<td class="data row1 col3" id="T_8ac92_row1_col3">5,577,103</td>
+<td class="data row1 col4" id="T_8ac92_row1_col4">10,271,433.063</td>
 </tr>
 <tr>
-<th class="row_heading level0 row2" id="T_40be6_level0_row2">identified_customer_purchases</th>
-<td class="data row2 col0" id="T_40be6_row2_col0">396,340</td>
-<td class="data row2 col1" id="T_40be6_row2_col1">18,402</td>
-<td class="data row2 col2" id="T_40be6_row2_col2">4,334</td>
-<td class="data row2 col3" id="T_40be6_row2_col3">5,157,357</td>
-<td class="data row2 col4" id="T_40be6_row2_col4">8,761,066.653</td>
+<th class="row_heading level0 row2" id="T_8ac92_level0_row2">identified_customer_purchases</th>
+<td class="data row2 col0" id="T_8ac92_row2_col0">396,340</td>
+<td class="data row2 col1" id="T_8ac92_row2_col1">18,402</td>
+<td class="data row2 col2" id="T_8ac92_row2_col2">4,334</td>
+<td class="data row2 col3" id="T_8ac92_row2_col3">5,157,357</td>
+<td class="data row2 col4" id="T_8ac92_row2_col4">8,761,066.653</td>
 </tr>
 <tr>
-<th class="row_heading level0 row3" id="T_40be6_level0_row3">anonymous_purchases</th>
-<td class="data row3 col0" id="T_40be6_row3_col0">131,421</td>
-<td class="data row3 col1" id="T_40be6_row3_col1">1,371</td>
-<td class="data row3 col2" id="T_40be6_row3_col2">0</td>
-<td class="data row3 col3" id="T_40be6_row3_col3">419,746</td>
-<td class="data row3 col4" id="T_40be6_row3_col4">1,510,366.410</td>
+<th class="row_heading level0 row3" id="T_8ac92_level0_row3">anonymous_purchases</th>
+<td class="data row3 col0" id="T_8ac92_row3_col0">131,421</td>
+<td class="data row3 col1" id="T_8ac92_row3_col1">1,371</td>
+<td class="data row3 col2" id="T_8ac92_row3_col2">0</td>
+<td class="data row3 col3" id="T_8ac92_row3_col3">419,746</td>
+<td class="data row3 col4" id="T_8ac92_row3_col4">1,510,366.410</td>
 </tr>
 </tbody>
 </table>
@@ -8105,30 +8105,30 @@ Raw columns preserved; three local exports written and read back exactly.
 <div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output" data-mime-type="text/html" tabindex="0">
 <style type="text/css">
 </style>
-<table id="T_781a4">
+<table id="T_a0d55">
 <thead>
 <tr>
-<th class="col_heading level0 col0" id="T_781a4_level0_col0">Population</th>
-<th class="col_heading level0 col1" id="T_781a4_level0_col1">Baseline rows</th>
-<th class="col_heading level0 col2" id="T_781a4_level0_col2">Rows without copies</th>
-<th class="col_heading level0 col3" id="T_781a4_level0_col3">Value reduction (GBP)</th>
-<th class="col_heading level0 col4" id="T_781a4_level0_col4">Value reduction (%)</th>
+<th class="col_heading level0 col0" id="T_a0d55_level0_col0">Population</th>
+<th class="col_heading level0 col1" id="T_a0d55_level0_col1">Baseline rows</th>
+<th class="col_heading level0 col2" id="T_a0d55_level0_col2">Rows without copies</th>
+<th class="col_heading level0 col3" id="T_a0d55_level0_col3">Value reduction (GBP)</th>
+<th class="col_heading level0 col4" id="T_a0d55_level0_col4">Value reduction (%)</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td class="data row0 col0" id="T_781a4_row0_col0">merchandise_purchases</td>
-<td class="data row0 col1" id="T_781a4_row0_col1">527,761</td>
-<td class="data row0 col2" id="T_781a4_row0_col2">522,540</td>
-<td class="data row0 col3" id="T_781a4_row0_col3">24,213.740</td>
-<td class="data row0 col4" id="T_781a4_row0_col4">0.236</td>
+<td class="data row0 col0" id="T_a0d55_row0_col0">merchandise_purchases</td>
+<td class="data row0 col1" id="T_a0d55_row0_col1">527,761</td>
+<td class="data row0 col2" id="T_a0d55_row0_col2">522,540</td>
+<td class="data row0 col3" id="T_a0d55_row0_col3">24,213.740</td>
+<td class="data row0 col4" id="T_a0d55_row0_col4">0.236</td>
 </tr>
 <tr>
-<td class="data row1 col0" id="T_781a4_row1_col0">identified_customer_purchases</td>
-<td class="data row1 col1" id="T_781a4_row1_col1">396,340</td>
-<td class="data row1 col2" id="T_781a4_row1_col2">391,153</td>
-<td class="data row1 col3" id="T_781a4_row1_col3">23,839.010</td>
-<td class="data row1 col4" id="T_781a4_row1_col4">0.272</td>
+<td class="data row1 col0" id="T_a0d55_row1_col0">identified_customer_purchases</td>
+<td class="data row1 col1" id="T_a0d55_row1_col1">396,340</td>
+<td class="data row1 col2" id="T_a0d55_row1_col2">391,153</td>
+<td class="data row1 col3" id="T_a0d55_row1_col3">23,839.010</td>
+<td class="data row1 col4" id="T_a0d55_row1_col4">0.272</td>
 </tr>
 </tbody>
 </table>
@@ -8263,41 +8263,41 @@ Row classifications, including all overlapping statuses: {'merchandise': 538954,
 <div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output" data-mime-type="text/html" tabindex="0">
 <style type="text/css">
 </style>
-<table id="T_5c9e3">
+<table id="T_37739">
 <thead>
 <tr>
-<th class="col_heading level0 col0" id="T_5c9e3_level0_col0">Check</th>
-<th class="col_heading level0 col1" id="T_5c9e3_level0_col1">Passed</th>
+<th class="col_heading level0 col0" id="T_37739_level0_col0">Check</th>
+<th class="col_heading level0 col1" id="T_37739_level0_col1">Passed</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td class="data row0 col0" id="T_5c9e3_row0_col0">raw_columns_unchanged</td>
-<td class="data row0 col1" id="T_5c9e3_row0_col1">True</td>
+<td class="data row0 col0" id="T_37739_row0_col0">raw_columns_unchanged</td>
+<td class="data row0 col1" id="T_37739_row0_col1">True</td>
 </tr>
 <tr>
-<td class="data row1 col0" id="T_5c9e3_row1_col0">raw_digest_verified</td>
-<td class="data row1 col1" id="T_5c9e3_row1_col1">True</td>
+<td class="data row1 col0" id="T_37739_row1_col0">raw_digest_verified</td>
+<td class="data row1 col1" id="T_37739_row1_col1">True</td>
 </tr>
 <tr>
-<td class="data row2 col0" id="T_5c9e3_row2_col0">unique_source_lineage</td>
-<td class="data row2 col1" id="T_5c9e3_row2_col1">True</td>
+<td class="data row2 col0" id="T_37739_row2_col0">unique_source_lineage</td>
+<td class="data row2 col1" id="T_37739_row2_col1">True</td>
 </tr>
 <tr>
-<td class="data row3 col0" id="T_5c9e3_row3_col0">status_partition</td>
-<td class="data row3 col1" id="T_5c9e3_row3_col1">True</td>
+<td class="data row3 col0" id="T_37739_row3_col0">status_partition</td>
+<td class="data row3 col1" id="T_37739_row3_col1">True</td>
 </tr>
 <tr>
-<td class="data row4 col0" id="T_5c9e3_row4_col0">independent_sql_status_rows_and_value</td>
-<td class="data row4 col1" id="T_5c9e3_row4_col1">True</td>
+<td class="data row4 col0" id="T_37739_row4_col0">independent_sql_status_rows_and_value</td>
+<td class="data row4 col1" id="T_37739_row4_col1">True</td>
 </tr>
 <tr>
-<td class="data row5 col0" id="T_5c9e3_row5_col0">customer_partition_rows_and_value</td>
-<td class="data row5 col1" id="T_5c9e3_row5_col1">True</td>
+<td class="data row5 col0" id="T_37739_row5_col0">customer_partition_rows_and_value</td>
+<td class="data row5 col1" id="T_37739_row5_col1">True</td>
 </tr>
 <tr>
-<td class="data row6 col0" id="T_5c9e3_row6_col0">exports_round_trip</td>
-<td class="data row6 col1" id="T_5c9e3_row6_col1">True</td>
+<td class="data row6 col0" id="T_37739_row6_col0">exports_round_trip</td>
+<td class="data row6 col1" id="T_37739_row6_col1">True</td>
 </tr>
 </tbody>
 </table>
