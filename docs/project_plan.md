@@ -41,7 +41,8 @@ Completed, verified changes are committed and pushed throughout the project. Rep
 
 - **Stage 1 is complete:** dataset download, environment setup, Python loading, source documentation, quality inspection, and verified SQLite ingestion are finished.
 - SQLite retains all 541,909 original records. Source summaries and a comparison covering every row and field passed; a repeat import verified the existing database without changing it. See [SQLite ingestion](sqlite_ingestion.md).
-- **Stage 2 has not started:** cleaning rules have not been applied and no source transaction rows have been removed.
-- Historical effort has not been measured, so no consumed-hour estimate is asserted.
+- **Stage 2 is complete:** the reproducible cleaning pipeline preserves all 541,909 source rows in an audit ledger and saves 527,761 eligible merchandise-purchase rows plus a 396,340-row identified-customer subset. Item-code review, exact-copy sensitivity, independent SQL reconciliation, and exact export read-back checks passed. See [transaction cleaning](data_cleaning.md).
+- The cleaning notebook executed top-to-bottom and its HTML export was generated. Visual inspection of that export remains uncompleted because the preview browser blocks local-file URLs; this presentation gap does not affect the executed data reconciliation.
+- Historical effort before timed session tracking has not been measured, so no retrospective consumed-hour estimate is asserted.
 
-The next implementation milestone is the two-day cleaning allocation, followed by business SQL analysis. Stage 1 was closed on 6 November 2026.
+The next implementation milestone is Stage 3: load the reviewed populations into SQLite and save reconciled business SQL queries. Stage 1 closed on 6 November 2026; Stage 2 closed on 7 November 2026 within its allocation. Stage 3 has not started.

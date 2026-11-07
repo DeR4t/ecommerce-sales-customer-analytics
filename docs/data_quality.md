@@ -31,4 +31,4 @@ Source checksum and expected schema/shape; nulls and blank text; overlapping rev
 4. Review the item-code candidates before defining merchandise rankings.
 5. Record order eligibility, average order value, and revenue definitions before aggregation. Net recorded line value is not profit.
 
-No cleaned transaction dataset, finalized business KPI, RFM segmentation, or causal explanation is produced by this assessment.
+This assessment itself does not change any rows. Stage 2 subsequently implemented the reviewed rules and saved lineage-preserving populations; see [transaction cleaning](data_cleaning.md) for the applied decisions, counts, and limitations. The original observations above remain the pre-cleaning baseline.

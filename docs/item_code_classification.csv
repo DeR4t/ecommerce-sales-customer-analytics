@@ -1,0 +1,33 @@
+stock_code_key,item_class,basis
+AMAZONFEE,non_merchandise,AMAZON FEE
+B,non_merchandise,Adjust bad debt
+BANK CHARGES,non_merchandise,Bank Charges
+C2,non_merchandise,CARRIAGE
+CRUK,non_merchandise,CRUK Commission
+D,non_merchandise,Discount
+DOT,non_merchandise,DOTCOM POSTAGE
+M,unresolved,Manual entry without identifiable merchandise
+POST,non_merchandise,POSTAGE
+S,non_merchandise,SAMPLES
+GIFT_0001_10,non_merchandise,Gift voucher face value 10 GBP
+GIFT_0001_20,non_merchandise,Gift voucher face value 20 GBP
+GIFT_0001_30,non_merchandise,Gift voucher face value 30 GBP
+GIFT_0001_40,non_merchandise,Gift voucher face value 40 GBP
+GIFT_0001_50,non_merchandise,Gift voucher face value 50 GBP
+PADS,merchandise,PADS TO MATCH ALL CUSHIONS
+DCGS0003,merchandise,BOXED GLASS ASHTRAY; zero-price adjustment also present
+DCGS0004,merchandise,HAYNES CAMPER SHOULDER BAG
+DCGS0055,unresolved,Missing description; negative quantity and zero price
+DCGS0057,unresolved,Missing description; negative quantity and zero price
+DCGS0066P,unresolved,Missing description; negative quantity and zero price
+DCGS0067,unresolved,ebay adjustment; negative quantity and zero price
+DCGS0068,unresolved,ebay adjustment; negative quantity and zero price
+DCGS0069,merchandise,OOH LA LA DOGS COLLAR; zero-price adjustment also present
+DCGS0070,merchandise,CAMOUFLAGE DOG COLLAR; zero-price adjustment also present
+DCGS0071,unresolved,Missing description; negative quantity and zero price
+DCGS0072,unresolved,Missing description; negative quantity and zero price
+DCGS0073,unresolved,ebay adjustment; negative quantity and zero price
+DCGS0074,unresolved,Missing description; negative quantity and zero price
+DCGS0076,merchandise,SUNJAR LED NIGHT NIGHT LIGHT
+DCGSSBOY,merchandise,BOYS PARTY BAG
+DCGSSGIRL,merchandise,GIRLS PARTY BAG

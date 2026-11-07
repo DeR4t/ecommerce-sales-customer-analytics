@@ -1,0 +1,102 @@
+{
+  "rules_version": 1,
+  "source_sha256": "43465a06f2ccf7c8b5bd2892bc7defb52f97487934fe93b16ae4c3936424676d",
+  "raw_records_sha256": "4bf3dc993048be11b3cf64755381fb9a9f2a31763bfd63a1e4162da50d929568",
+  "classification_sha256": "cae1ba55142441c5b83df3ae882219189a71fc15359f17baac05fcb3d6c22c18",
+  "currency": "GBP",
+  "integer_value_scale": 1000,
+  "duplicate_baseline": "retain_all_source_rows",
+  "source_rows": 541909,
+  "status_counts": {
+    "eligible_purchase": 527761,
+    "cancellation": 9288,
+    "non_merchandise": 2021,
+    "nonpositive_quantity": 1336,
+    "nonpositive_price": 1181,
+    "unresolved_item": 322
+  },
+  "populations": {
+    "all_recorded_lines": {
+      "rows": 541909,
+      "invoice_ids": 25900,
+      "known_customer_ids": 4372,
+      "quantity": 5176450,
+      "line_value_millipounds": 9747747934
+    },
+    "merchandise_purchases": {
+      "rows": 527761,
+      "invoice_ids": 19773,
+      "known_customer_ids": 4334,
+      "quantity": 5577103,
+      "line_value_millipounds": 10271433063
+    },
+    "identified_customer_purchases": {
+      "rows": 396340,
+      "invoice_ids": 18402,
+      "known_customer_ids": 4334,
+      "quantity": 5157357,
+      "line_value_millipounds": 8761066653
+    },
+    "anonymous_purchases": {
+      "rows": 131421,
+      "invoice_ids": 1371,
+      "known_customer_ids": 0,
+      "quantity": 419746,
+      "line_value_millipounds": 1510366410
+    }
+  },
+  "duplicate_sensitivity": {
+    "merchandise_purchases": {
+      "baseline": {
+        "rows": 527761,
+        "invoice_ids": 19773,
+        "known_customer_ids": 4334,
+        "quantity": 5577103,
+        "line_value_millipounds": 10271433063
+      },
+      "without_exact_copies": {
+        "rows": 522540,
+        "invoice_ids": 19773,
+        "known_customer_ids": 4334,
+        "quantity": 5561387,
+        "line_value_millipounds": 10247219323
+      }
+    },
+    "identified_customer_purchases": {
+      "baseline": {
+        "rows": 396340,
+        "invoice_ids": 18402,
+        "known_customer_ids": 4334,
+        "quantity": 5157357,
+        "line_value_millipounds": 8761066653
+      },
+      "without_exact_copies": {
+        "rows": 391153,
+        "invoice_ids": 18402,
+        "known_customer_ids": 4334,
+        "quantity": 5141787,
+        "line_value_millipounds": 8737227643
+      }
+    }
+  },
+  "raw_exact_copies_beyond_first": 5268,
+  "item_class_counts": {
+    "merchandise": 538954,
+    "non_merchandise": 2374,
+    "unresolved": 581
+  },
+  "checks": {
+    "raw_columns_unchanged": true,
+    "raw_digest_verified": true,
+    "unique_source_lineage": true,
+    "status_partition": true,
+    "independent_sql_status_rows_and_value": true,
+    "customer_partition_rows_and_value": true,
+    "exports_round_trip": true
+  },
+  "export_sha256": {
+    "transaction_ledger.csv.gz": "b714818da5fcc4506d5b496afcc06d6a39af8acfccdb7d6e88b8e004f9b89699",
+    "sales_transactions.csv.gz": "950204e1e25e9a8909ea38978ee0519d663b6bb8b41c9e597adda88d23b03279",
+    "customer_transactions.csv.gz": "bbae1b7afe70f6ce4c49ddfdaf36fe32a173d7331745f77f83b0ce845fd58433"
+  }
+}

@@ -20,15 +20,21 @@
 
 Evidence: [data quality notebook](../notebooks/02_data_quality.ipynb) and [quality findings](data_quality.md).
 
-## Population and metric definitions pending review
+## Reviewed purchase populations
 
-- Separate positive purchase lines, cancellation/credit entries, and other adjustments. A negative quantity alone does not prove a physical return.
-- Preserve otherwise eligible anonymous purchases for overall sales; restrict customer-history calculations to known customer IDs and disclose coverage.
-- Choose and document a duplicate baseline with a sensitivity comparison before removing exact copies.
-- Review non-merchandise and adjustment codes before defining product rankings.
-- Define gross purchase value, credit value, net recorded revenue, and eligible purchase invoices before computing average order value. Recorded revenue is not profit.
-- Define the RFM reference date, customer population, scoring rules, and repeat-purchase denominator.
+- Merchandise purchases require positive quantity and price, a reviewed merchandise code, and no cancellation prefix. Retain otherwise eligible anonymous purchases in sales; identified purchases form a separate customer population.
+- Retain exact copies in the baseline; publish a sensitivity excluding copies beyond the first. Preserve cancellations, nonpositive values, non-merchandise, and unresolved manual entries in the complete ledger.
+- Store monetary calculations in integer thousandths of GBP to retain the observed £0.001 price precision. Gross purchase value excludes credits and is not net revenue or profit. Signed all-source value includes adjustments and is not net merchandise revenue.
+- Eligible orders are distinct invoice IDs containing eligible purchase lines. Gross merchandise average order value divides purchase value by that order count. Use the earliest eligible line timestamp per invoice for later invoice-level date aggregation.
+- Keep source strings unchanged; derive a normalized item-code key for classification. Preserve unusual merchandise codes and numeric extremes.
+
+Rules, classification assumptions, reconciliation results, and duplicate sensitivity: [transaction cleaning](data_cleaning.md). The reproducible outputs retain source-row lineage.
+
+## Decisions deferred to later stages
+
+- Credit matching or a refund-adjusted metric requires a separate documented method; none is assumed.
+- Define the RFM reference date, scoring rules, and repeat-purchase denominator during segmentation.
 
 ## Interpretation
 
-December 2011 requires exclusion from full-month comparisons or a matching-window comparison. Customer purchase frequency describes only observed activity within the source window. No transaction rows have been removed and no business KPI has yet been finalized.
+December 2011 requires exclusion from full-month comparisons or a matching-window comparison. Customer purchase frequency describes only observed activity within the source window. All source rows remain in the raw table and cleaning ledger; analytical populations filter eligibility without deleting source records. Business KPI analyses remain for the next stages.
