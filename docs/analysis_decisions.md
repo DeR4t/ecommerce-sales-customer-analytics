@@ -33,7 +33,11 @@ Rules, classification assumptions, reconciliation results, and duplicate sensiti
 ## Decisions deferred to later stages
 
 - Credit matching or a refund-adjusted metric requires a separate documented method; none is assumed.
-- Define the RFM reference date, scoring rules, and repeat-purchase denominator during segmentation.
+- Define the RFM reference date and scoring rules during segmentation.
+
+## SQL baseline definitions
+
+The [SQL analysis](sql_analysis.md) applies the reviewed populations in a separate analytical SQLite database. Monthly totals use earliest eligible invoice timestamps, product labels use one latest eligible description per item code, and full-month growth is suppressed for partial December 2011 or non-adjacent periods. Observed repeat-purchase share uses identified customers with at least two eligible invoices divided by all identified customers with purchases; this is not a retention measure. RFM reference date and scoring remain deferred.
 
 ## Interpretation
 

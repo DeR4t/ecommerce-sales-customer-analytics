@@ -1,0 +1,369 @@
+{
+  "currency": "GBP",
+  "integer_value_scale": 1000,
+  "measure": "gross_merchandise_purchases_before_credits",
+  "duplicate_baseline": "retain_all_source_rows",
+  "source_window": [
+    "2010-12-01",
+    "2011-12-09"
+  ],
+  "analysis_records_sha256": "2619851f660d478f962119cecac1bd200d2ea9cfa7b00dc9902594aeabcfdc7e",
+  "query_sha256": {
+    "sales_summary": "836092a4150b63fe49b8a077fcd577562c8daa4055b8762920a16cb2ee638c83",
+    "products": "e21b24d46986b884f5b042460d13f61ed5937667257cb4d4c474efa8070a8cf1",
+    "countries": "47f8f8db0318584c53cc4a3ee12f1c00fab17a68ce4d87f910eb6863787136eb",
+    "monthly_sales": "18e5bfd43d5372482e29cfadd9429fceb11a4501ed53bed77f1e30e794d323da",
+    "orders": "87cb0854d0b90b1ab11a114532cc5f2be121980edd2648f83b402e8eccf8aef5",
+    "customers": "d5983ce28e971529fc97de3d02825e058c4127c902419a3f2c6edfd3cc90e2d3"
+  },
+  "reconciliation": {
+    "sales_summary": "all_rows_and_measures_passed",
+    "products": "all_rows_and_measures_passed",
+    "countries": "all_rows_and_measures_passed",
+    "monthly_sales": "all_rows_and_measures_passed",
+    "orders": "all_rows_and_measures_passed",
+    "customers": "all_rows_and_measures_passed"
+  },
+  "sales_summary": {
+    "purchase_lines": 527761,
+    "purchase_orders": 19773,
+    "identified_customers": 4334,
+    "units": 5577103,
+    "gross_purchase_millipounds": 10271433063,
+    "identified_purchase_millipounds": 8761066653,
+    "anonymous_purchase_millipounds": 1510366410,
+    "gross_aov_gbp": 519.4676105295099
+  },
+  "leading_products": [
+    {
+      "stock_code_key": "22423",
+      "purchase_lines": 2017,
+      "purchase_orders": 1988,
+      "units": 13879,
+      "gross_purchase_millipounds": 174484740,
+      "product_description": "REGENCY CAKESTAND 3 TIER",
+      "value_rank": 1
+    },
+    {
+      "stock_code_key": "23843",
+      "purchase_lines": 1,
+      "purchase_orders": 1,
+      "units": 80995,
+      "gross_purchase_millipounds": 168469600,
+      "product_description": "PAPER CRAFT , LITTLE BIRDIE",
+      "value_rank": 2
+    },
+    {
+      "stock_code_key": "85123A",
+      "purchase_lines": 2332,
+      "purchase_orders": 2265,
+      "units": 37952,
+      "gross_purchase_millipounds": 106471280,
+      "product_description": "CREAM HANGING HEART T-LIGHT HOLDER",
+      "value_rank": 3
+    },
+    {
+      "stock_code_key": "47566",
+      "purchase_lines": 1706,
+      "purchase_orders": 1685,
+      "units": 18295,
+      "gross_purchase_millipounds": 99504330,
+      "product_description": "PARTY BUNTING",
+      "value_rank": 4
+    },
+    {
+      "stock_code_key": "85099B",
+      "purchase_lines": 2112,
+      "purchase_orders": 2089,
+      "units": 48474,
+      "gross_purchase_millipounds": 94340050,
+      "product_description": "JUMBO BAG RED RETROSPOT",
+      "value_rank": 5
+    },
+    {
+      "stock_code_key": "23166",
+      "purchase_lines": 250,
+      "purchase_orders": 247,
+      "units": 78033,
+      "gross_purchase_millipounds": 81700920,
+      "product_description": "MEDIUM CERAMIC TOP STORAGE JAR",
+      "value_rank": 6
+    },
+    {
+      "stock_code_key": "23084",
+      "purchase_lines": 1036,
+      "purchase_orders": 994,
+      "units": 30788,
+      "gross_purchase_millipounds": 66964990,
+      "product_description": "RABBIT NIGHT LIGHT",
+      "value_rank": 7
+    },
+    {
+      "stock_code_key": "22086",
+      "purchase_lines": 1200,
+      "purchase_orders": 1160,
+      "units": 19355,
+      "gross_purchase_millipounds": 64952290,
+      "product_description": "PAPER CHAIN KIT 50'S CHRISTMAS",
+      "value_rank": 8
+    },
+    {
+      "stock_code_key": "84879",
+      "purchase_lines": 1489,
+      "purchase_orders": 1455,
+      "units": 36461,
+      "gross_purchase_millipounds": 59094930,
+      "product_description": "ASSORTED COLOUR BIRD ORNAMENT",
+      "value_rank": 9
+    },
+    {
+      "stock_code_key": "79321",
+      "purchase_lines": 670,
+      "purchase_orders": 661,
+      "units": 10306,
+      "gross_purchase_millipounds": 54117760,
+      "product_description": "CHILLI LIGHTS",
+      "value_rank": 10
+    }
+  ],
+  "leading_countries": [
+    {
+      "country": "United Kingdom",
+      "purchase_orders": 17901,
+      "purchase_lines": 484007,
+      "identified_customers": 3916,
+      "units": 4654358,
+      "gross_purchase_millipounds": 8747561663,
+      "gross_aov_gbp": 488.66329607284507,
+      "value_share_percent": 85.16398451264483
+    },
+    {
+      "country": "Netherlands",
+      "purchase_orders": 93,
+      "purchase_lines": 2322,
+      "identified_customers": 9,
+      "units": 200258,
+      "gross_purchase_millipounds": 283889340,
+      "gross_aov_gbp": 3052.5735483870967,
+      "value_share_percent": 2.763872755230552
+    },
+    {
+      "country": "EIRE",
+      "purchase_orders": 282,
+      "purchase_lines": 7779,
+      "identified_customers": 3,
+      "units": 147062,
+      "gross_purchase_millipounds": 271164300,
+      "gross_aov_gbp": 961.5755319148936,
+      "value_share_percent": 2.639985076442687
+    },
+    {
+      "country": "Germany",
+      "purchase_orders": 443,
+      "purchase_lines": 8658,
+      "identified_customers": 94,
+      "units": 118139,
+      "gross_purchase_millipounds": 205569890,
+      "gross_aov_gbp": 464.04038374717834,
+      "value_share_percent": 2.0013749662693976
+    },
+    {
+      "country": "France",
+      "purchase_orders": 382,
+      "purchase_lines": 8100,
+      "identified_customers": 87,
+      "units": 111269,
+      "gross_purchase_millipounds": 184582740,
+      "gross_aov_gbp": 483.20089005235604,
+      "value_share_percent": 1.7970495340607178
+    },
+    {
+      "country": "Australia",
+      "purchase_orders": 56,
+      "purchase_lines": 1181,
+      "identified_customers": 9,
+      "units": 83900,
+      "gross_purchase_millipounds": 138171310,
+      "gross_aov_gbp": 2467.3448214285713,
+      "value_share_percent": 1.3451999263639653
+    },
+    {
+      "country": "Spain",
+      "purchase_orders": 88,
+      "purchase_lines": 2422,
+      "identified_customers": 30,
+      "units": 27731,
+      "gross_purchase_millipounds": 55725110,
+      "gross_aov_gbp": 633.2398863636364,
+      "value_share_percent": 0.5425251730523788
+    },
+    {
+      "country": "Switzerland",
+      "purchase_orders": 50,
+      "purchase_lines": 1935,
+      "identified_customers": 21,
+      "units": 30527,
+      "gross_purchase_millipounds": 53087900,
+      "gross_aov_gbp": 1061.758,
+      "value_share_percent": 0.5168499826108441
+    },
+    {
+      "country": "Japan",
+      "purchase_orders": 19,
+      "purchase_lines": 321,
+      "identified_customers": 8,
+      "units": 26016,
+      "gross_purchase_millipounds": 37416370,
+      "gross_aov_gbp": 1969.2826315789473,
+      "value_share_percent": 0.36427604376629913
+    },
+    {
+      "country": "Belgium",
+      "purchase_orders": 98,
+      "purchase_lines": 1935,
+      "identified_customers": 25,
+      "units": 22962,
+      "gross_purchase_millipounds": 36927340,
+      "gross_aov_gbp": 376.8095918367347,
+      "value_share_percent": 0.35951497491640716
+    }
+  ],
+  "monthly_sales": [
+    {
+      "month": "2010-12",
+      "purchase_orders": 1550,
+      "purchase_lines": 41315,
+      "units": 358749,
+      "gross_purchase_millipounds": 777931770,
+      "is_complete_month": 1,
+      "gross_aov_gbp": 501.891464516129,
+      "full_month_growth_percent": null
+    },
+    {
+      "month": "2011-01",
+      "purchase_orders": 1081,
+      "purchase_lines": 34148,
+      "units": 387424,
+      "gross_purchase_millipounds": 671933190,
+      "is_complete_month": 1,
+      "gross_aov_gbp": 621.5848196114708,
+      "full_month_growth_percent": -13.62569110656067
+    },
+    {
+      "month": "2011-02",
+      "purchase_orders": 1093,
+      "purchase_lines": 26964,
+      "units": 283248,
+      "gross_purchase_millipounds": 508886200,
+      "is_complete_month": 1,
+      "gross_aov_gbp": 465.58664226898446,
+      "full_month_growth_percent": -24.265357393642066
+    },
+    {
+      "month": "2011-03",
+      "purchase_orders": 1440,
+      "purchase_lines": 35607,
+      "units": 377109,
+      "gross_purchase_millipounds": 691257610,
+      "is_complete_month": 1,
+      "gross_aov_gbp": 480.04000694444443,
+      "full_month_growth_percent": 35.83736599656269
+    },
+    {
+      "month": "2011-04",
+      "purchase_orders": 1235,
+      "purchase_lines": 28957,
+      "units": 308513,
+      "gross_purchase_millipounds": 516218121,
+      "is_complete_month": 1,
+      "gross_aov_gbp": 417.9903813765182,
+      "full_month_growth_percent": -25.321889620860738
+    },
+    {
+      "month": "2011-05",
+      "purchase_orders": 1668,
+      "purchase_lines": 35979,
+      "units": 395390,
+      "gross_purchase_millipounds": 741192410,
+      "is_complete_month": 1,
+      "gross_aov_gbp": 444.35995803357315,
+      "full_month_growth_percent": 43.581245959399396
+    },
+    {
+      "month": "2011-06",
+      "purchase_orders": 1525,
+      "purchase_lines": 35773,
+      "units": 388826,
+      "gross_purchase_millipounds": 738751870,
+      "is_complete_month": 1,
+      "gross_aov_gbp": 484.4274557377049,
+      "full_month_growth_percent": -0.329272125169226
+    },
+    {
+      "month": "2011-07",
+      "purchase_orders": 1452,
+      "purchase_lines": 38444,
+      "units": 401357,
+      "gross_purchase_millipounds": 689364411,
+      "is_complete_month": 1,
+      "gross_aov_gbp": 474.76887809917355,
+      "full_month_growth_percent": -6.685256715492307
+    },
+    {
+      "month": "2011-08",
+      "purchase_orders": 1339,
+      "purchase_lines": 34326,
+      "units": 421445,
+      "gross_purchase_millipounds": 725513500,
+      "is_complete_month": 1,
+      "gross_aov_gbp": 541.8323375653473,
+      "full_month_growth_percent": 5.243828724427725
+    },
+    {
+      "month": "2011-09",
+      "purchase_orders": 1818,
+      "purchase_lines": 49057,
+      "units": 569948,
+      "gross_purchase_millipounds": 1030475361,
+      "is_complete_month": 1,
+      "gross_aov_gbp": 566.8181303630363,
+      "full_month_growth_percent": 42.033933345141065
+    },
+    {
+      "month": "2011-10",
+      "purchase_orders": 2005,
+      "purchase_lines": 59068,
+      "units": 621729,
+      "gross_purchase_millipounds": 1106669820,
+      "is_complete_month": 1,
+      "gross_aov_gbp": 551.9550224438902,
+      "full_month_growth_percent": 7.394107795654515
+    },
+    {
+      "month": "2011-11",
+      "purchase_orders": 2751,
+      "purchase_lines": 83092,
+      "units": 750082,
+      "gross_purchase_millipounds": 1457745530,
+      "is_complete_month": 1,
+      "gross_aov_gbp": 529.8965939658306,
+      "full_month_growth_percent": 31.7236183417381
+    },
+    {
+      "month": "2011-12",
+      "purchase_orders": 816,
+      "purchase_lines": 25031,
+      "units": 313283,
+      "gross_purchase_millipounds": 615493270,
+      "is_complete_month": 0,
+      "gross_aov_gbp": 754.280968137255,
+      "full_month_growth_percent": null
+    }
+  ],
+  "customer_purchase_summary": {
+    "identified_customers": 4334,
+    "one_order_customers": 1505,
+    "repeat_customers": 2829,
+    "repeat_customer_share_percent": 65.27457314259345
+  }
+}

@@ -25,8 +25,10 @@ The project is timeboxed to 12–15 workdays at 1–2 hours per day, with a maxi
 | [SQLite ingestion](docs/sqlite_ingestion.md) | Raw schema, reproducible loading, and complete source reconciliation |
 | [Transaction cleaning](docs/data_cleaning.md) | Reviewed eligibility rules, lineage-preserving populations, and duplicate sensitivity |
 | [Cleaning notebook](notebooks/03_data_cleaning.ipynb) | Executed cleaning pipeline, count bridge, population coverage, and validation results |
+| [SQL analysis](docs/sql_analysis.md) | Analytical schema, saved queries, reconciled baseline findings, and metric definitions |
+| [SQL notebook](notebooks/04_sql_analysis.ipynb) | Executed sales, product, country, monthly, order-value, and customer-purchase queries |
 
-Executed notebooks and HTML exports are included. Original records are reconciled in SQLite; cleaning produces a complete audit ledger plus separate merchandise-purchase and identified-customer populations. Business SQL queries, revenue KPI analysis, and customer segmentation remain pending.
+Executed notebooks and HTML exports are included. Original records and cleaning populations are reconciled in SQLite. Six saved business SQL queries provide a verified gross-purchase baseline, including order value and observed repeat purchasing. Exploratory figures, segmentation, and recommendations remain pending.
 
 ## Data
 
@@ -49,6 +51,8 @@ Invoke-WebRequest -Uri 'https://archive.ics.uci.edu/static/public/352/online+ret
 .\.venv\Scripts\python.exe scripts\run_notebook.py notebooks\02_data_quality.ipynb
 .\.venv\Scripts\python.exe -m unittest discover -s tests -v
 .\.venv\Scripts\python.exe scripts\run_notebook.py notebooks\03_data_cleaning.ipynb
+.\.venv\Scripts\python.exe scripts\validate_cleaning.py
+.\.venv\Scripts\python.exe scripts\run_notebook.py notebooks\04_sql_analysis.ipynb
 ```
 
 `requirements-lock.txt` records the verified environment; `requirements.txt` defines supported dependency ranges. The runner saves executed notebooks and HTML exports under `reports/`. Launch JupyterLab with `.\.venv\Scripts\python.exe -m jupyterlab` for interactive use.
